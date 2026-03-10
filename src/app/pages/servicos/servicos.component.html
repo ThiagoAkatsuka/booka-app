@@ -1,0 +1,75 @@
+<div class="bg-slate-50 font-sans text-slate-900 antialiased h-screen flex overflow-hidden">
+  
+  <app-sidebar></app-sidebar>
+
+  <div class="flex-1 flex flex-col min-w-0">
+    
+    <app-topbar></app-topbar>
+
+    <main class="flex-1 overflow-y-auto p-8 space-y-8">
+      
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-800">Meus Serviços</h1>
+          <p class="text-slate-500">Gerencie seu catálogo de serviços e preços.</p>
+        </div>
+        <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl shadow-lg shadow-emerald-100 transition-all flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          Novo Serviço
+        </button>
+      </div>
+
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-50/50 text-slate-500 text-xs font-bold uppercase tracking-wider">
+              <tr>
+                <th class="px-6 py-4">Nome</th>
+                <th class="px-6 py-4">Duração (min)</th>
+                <th class="px-6 py-4">Preço</th>
+                <th class="px-6 py-4 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-sm">
+              
+              <tr class="hover:bg-slate-50/50 transition-colors group">
+                <td class="px-6 py-4 font-semibold text-slate-800">Corte de Cabelo</td>
+                <td class="px-6 py-4 text-slate-600">60 min</td>
+                <td class="px-6 py-4 font-medium text-slate-800">R$ 50,00</td>
+                <td class="px-6 py-4 text-right">
+                  <button class="text-slate-400 hover:text-indigo-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                  </button>
+                </td>
+              </tr>
+              
+              <tr class="hover:bg-slate-50/50 transition-colors group">
+                <td class="px-6 py-4 font-semibold text-slate-800">Barba Completa</td>
+                <td class="px-6 py-4 text-slate-600">30 min</td>
+                <td class="px-6 py-4 font-medium text-slate-800">R$ 35,00</td>
+                <td class="px-6 py-4 text-right">
+                  <button class="text-slate-400 hover:text-indigo-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                  </button>
+                </td>
+              </tr>
+              
+              <tr class="hover:bg-slate-50/50 transition-colors group">
+                <td class="px-6 py-4 font-semibold text-slate-800">Manicure Express</td>
+                <td class="px-6 py-4 text-slate-600">45 min</td>
+                <td class="px-6 py-4 font-medium text-slate-800">R$ 40,00</td>
+                <td class="px-6 py-4 text-right">
+                  <button class="text-slate-400 hover:text-indigo-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+    </div>
+</div>
