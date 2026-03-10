@@ -4,10 +4,10 @@ import { TopbarComponent } from '../../components/topbar/topbar.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-notificacoes',
+  selector: 'app-perfil',
   standalone: true,
   imports: [SidebarComponent, TopbarComponent, RouterModule],
-  templateUrl: './notificacoes.component.html',
-  styleUrl: './notificacoes.component.css'
+  templateUrl: './perfil.component.html',
+  styleUrl: './perfil.component.css'
 })
-export class NotificacoesComponent {}
+export class PerfilComponent {}
