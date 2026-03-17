@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* --- PALETA DE CORES (Tailwind v3) --- */
 $slate-50: #f8fafc;
 $slate-100: #f1f5f9;
 $slate-200: #e2e8f0;
@@ -25,38 +26,35 @@ $white: #ffffff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.03);
   width: 100%;
   max-width: 400px;
-  padding: 24px 16px;
+  padding: 32px 20px;
   background: $white;
   border: 1px solid $slate-200; 
   margin: 20px 0; 
 }
 
 .header-section {
-  margin-bottom: 24px;
-  p { font-size: 14px; color: $slate-500; margin: 0; font-weight: 500; }
+  margin-bottom: 28px;
+  
+  h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: $slate-900;
+    margin: 16px 0 8px;
+  }
+
+  p { 
+    font-size: 14px; 
+    color: $slate-500; 
+    margin: 0; 
+    font-weight: 400; 
+    line-height: 1.5;
+  }
 }
 
 .full-logo {
-  max-height: 40px; 
-  margin: 0 auto 15px; 
+  max-height: 45px; 
+  margin: 0 auto; 
   display: block;
-}
-
-.custom-segment {
-  background: $slate-100;
-  --background: #{$slate-100};
-  border-radius: 25px;
-  margin-bottom: 24px;
-  padding: 4px;
-}
-
-ion-segment-button {
-  --indicator-color: #{$white}; 
-  --color: #{$slate-500};         
-  --color-checked: #{$slate-900}; 
-  --border-radius: 20px;
-  font-weight: 500;
-  margin: 0 2px;
 }
 
 .custom-input {
@@ -64,7 +62,7 @@ ion-segment-button {
   --color: #{$slate-900}; 
   border: 1px solid $slate-200;
   border-radius: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   --padding-start: 12px;
   
   ion-label {
@@ -74,62 +72,45 @@ ion-segment-button {
   }
 }
 
-.input-icon {
-  color: $slate-500;
-  font-size: 20px;
-  padding-right: 12px;
-}
-
 .main-button {
   --background: #{$indigo-600}; 
   --background-hover: #{$indigo-700};
   --border-radius: 25px;
-  margin-top: 16px;
+  margin-top: 8px;
   height: 48px;
   font-weight: 600;
   text-transform: none;
 }
 
-.no-margin {
-  margin-top: 0;
-}
-
-.action-row {
-  margin-top: 16px;
-  align-items: center;
-}
-
-.back-button {
-  --color: #{$slate-500};
-  height: 48px;
-  margin: 0;
-}
-
-.signup-text {
-  margin-top: 24px;
-  font-size: 14px;
-  color: $slate-500;
+.back-link-container {
+  margin-top: 28px;
 }
 
 .link-text {
-  color: $indigo-600; 
+  color: $slate-500; 
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-}
-.custom-progress {
-  margin-top: 16px;
-  --background: #{$slate-100}; /* Cor do fundo da barra */
-  --progress-background: #{$indigo-600}; /* Cor do preenchimento */
-  height: 6px;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $indigo-600;
+  }
+
+  ion-icon {
+    font-size: 16px;
+  }
 }
 
-/* Animação suave na troca de etapas */
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out;
+/* Animação suave para a página inteira (opcional, mas dá um toque premium) */
+.login-card {
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }

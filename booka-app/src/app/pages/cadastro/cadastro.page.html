@@ -4,73 +4,98 @@
 
       <div class="header-section ion-text-center">
         <img src="assets/logo.jpeg" class="full-logo" alt="Booka Logo">
-        <p>Crie sua conta no Booka hoje mesmo</p>
+        <p *ngIf="etapaAtual === 1">Passo 1 de 2: Seus dados básicos</p>
+        <p *ngIf="etapaAtual === 2">Passo 2 de 2: Finalize seu perfil</p>
+        
+        <ion-progress-bar 
+          [value]="etapaAtual / totalEtapas" 
+          class="custom-progress">
+        </ion-progress-bar>
       </div>
-
-      <ion-segment [(ngModel)]="tipoUsuario" mode="ios" class="custom-segment">
-        <ion-segment-button value="cliente">
-          <ion-label>Sou Cliente</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="prestador">
-          <ion-label>Sou Prestador</ion-label>
-        </ion-segment-button>
-      </ion-segment>
 
       <div class="form-section">
-        <ion-item lines="none" class="custom-input">
-          <ion-label position="stacked">Nome completo</ion-label>
-          <ion-input type="text" placeholder="Digite seu nome"></ion-input>
-        </ion-item>
+        
+        <div *ngIf="etapaAtual === 1" class="fade-in">
+          
+          <ion-segment [(ngModel)]="tipoUsuario" mode="ios" class="custom-segment">
+            <ion-segment-button value="cliente">
+              <ion-label>Sou Cliente</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="prestador">
+              <ion-label>Sou Prestador</ion-label>
+            </ion-segment-button>
+          </ion-segment>
 
-        <ion-item lines="none" class="custom-input">
-          <ion-label position="stacked">E-mail</ion-label>
-          <ion-input type="email" placeholder="exemplo@email.com"></ion-input>
-        </ion-item>
-
-        <ion-item lines="none" class="custom-input">
-          <ion-label position="stacked">Telefone</ion-label>
-          <ion-input type="tel" placeholder="(00) 00000-0000"></ion-input>
-        </ion-item>
-
-        <ion-item lines="none" class="custom-input" *ngIf="tipoUsuario === 'cliente'">
-          <ion-label position="stacked">CPF</ion-label>
-          <ion-input type="text" placeholder="000.000.000-00"></ion-input>
-        </ion-item>
-
-        <ng-container *ngIf="tipoUsuario === 'prestador'">
           <ion-item lines="none" class="custom-input">
-            <ion-label position="stacked">CPF ou CNPJ</ion-label>
-            <ion-input type="text" placeholder="Digite o documento"></ion-input>
+            <ion-label position="stacked">Nome completo</ion-label>
+            <ion-input type="text" placeholder="Digite seu nome"></ion-input>
           </ion-item>
 
           <ion-item lines="none" class="custom-input">
-            <ion-label position="stacked">Nome da Empresa</ion-label>
-            <ion-input type="text" placeholder="Ex: Barbearia do João"></ion-input>
+            <ion-label position="stacked">E-mail</ion-label>
+            <ion-input type="email" placeholder="exemplo@email.com"></ion-input>
           </ion-item>
 
           <ion-item lines="none" class="custom-input">
-            <ion-label position="stacked">Horário de Funcionamento</ion-label>
-            <ion-input type="text" placeholder="Ex: Seg a Sex, 08:00 as 18:00"></ion-input>
+            <ion-label position="stacked">Telefone</ion-label>
+            <ion-input type="tel" placeholder="(00) 00000-0000"></ion-input>
           </ion-item>
+
+          <ion-button expand="block" class="main-button" (click)="proximaEtapa()">
+            Próximo Passo
+          </ion-button>
+        </div>
+
+        <div *ngIf="etapaAtual === 2" class="fade-in">
+          
+          <ng-container *ngIf="tipoUsuario === 'cliente'">
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">CPF</ion-label>
+              <ion-input type="text" placeholder="000.000.000-00"></ion-input>
+            </ion-item>
+          </ng-container>
+
+          <ng-container *ngIf="tipoUsuario === 'prestador'">
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">CPF ou CNPJ</ion-label>
+              <ion-input type="text" placeholder="Digite o documento"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">Nome da Empresa</ion-label>
+              <ion-input type="text" placeholder="Ex: Barbearia do João"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none" class="custom-input">
+              <ion-label position="stacked">Horário de Funcionamento</ion-label>
+              <ion-input type="text" placeholder="Ex: Seg a Sex, 08:00 as 18:00"></ion-input>
+            </ion-item>
+
+          </ng-container>
 
           <ion-item lines="none" class="custom-input">
-            <ion-label position="stacked">Serviços e Valores</ion-label>
-            <ion-textarea placeholder="Corte: R$ 50,00&#10;Barba: R$ 30,00" rows="3"></ion-textarea>
+            <ion-label position="stacked">Senha</ion-label>
+            <ion-input type="password" placeholder="Crie uma senha"></ion-input>
+            <ion-icon name="eye-outline" class="input-icon" slot="end"></ion-icon>
           </ion-item>
-        </ng-container>
 
-        <ion-item lines="none" class="custom-input">
-          <ion-label position="stacked">Senha</ion-label>
-          <ion-input type="password" placeholder="Crie uma senha"></ion-input>
-          <ion-icon name="eye-outline" class="input-icon" slot="end"></ion-icon>
-        </ion-item>
+          <ion-row class="action-row">
+            <ion-col size="3">
+              <ion-button fill="clear" expand="block" class="back-button" (click)="etapaAnterior()">
+                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="9">
+              <ion-button expand="block" class="main-button no-margin">
+                Criar Conta
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
 
-        <ion-button expand="block" class="main-button">
-          Cadastrar
-        </ion-button>
       </div>
 
-      <p class="ion-text-center signup-text">
+      <p class="ion-text-center signup-text" *ngIf="etapaAtual === 1">
         Já possui uma conta? <span class="link-text" routerLink="/login">Fazer Login</span>
       </p>
 

@@ -18,4 +18,8 @@ export const routes: Routes = [
     path: 'cadastro',
     loadComponent: () => import('./pages/cadastro/cadastro.page').then( m => m.CadastroPage)
   },
+  {
+    path: 'esqueci-senha',
+    loadComponent: () => import('./pages/esqueci-senha/esqueci-senha.page').then( m => m.EsqueciSenhaPage)
+  },
 ];

@@ -1,0 +1,33 @@
+<ion-content class="ion-padding app-background">
+  <div class="login-container">
+    <ion-card class="login-card">
+
+      <div class="header-section ion-text-center">
+        <img src="assets/logo.jpeg" class="full-logo" alt="Booka Logo">
+        <h1>Recuperar Senha</h1>
+        <p>Digite seu e-mail cadastrado e enviaremos um link para você redefinir sua senha.</p>
+      </div>
+
+      <div class="form-section">
+        
+        <ion-item lines="none" class="custom-input">
+          <ion-label position="stacked">E-mail</ion-label>
+          <ion-input type="email" placeholder="exemplo@email.com"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" class="main-button">
+          Enviar link de recuperação
+        </ion-button>
+
+      </div>
+
+      <div class="back-link-container ion-text-center">
+        <span class="link-text back-link" routerLink="/login">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          Voltar para o Login
+        </span>
+      </div>
+
+    </ion-card>
+  </div>
+</ion-content>
