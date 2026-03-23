@@ -1,20 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="onboarding-page">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Carrossel de fundo em tela cheia -->
+  <div class="bg-carousel">
+    <div
+      *ngFor="let img of slides; let i = index"
+      class="slide-bg"
+      [class.active]="i === activeIndex"
+      [style.backgroundImage]="'url(' + img + ')'"
+    ></div>
   </div>
+
+  <div class="overlay"></div>
+
+  <div class="content">
+    <div class="header">
+      <img src="assets/logo.jpeg" alt="Booka" class="brand-logo" />
+      <h1>Comece uma nova<br />aventura social.</h1>
+    </div>
+
+    <!-- Dots sincronizados com o slide ativo -->
+    <div class="pager">
+      <span
+        *ngFor="let img of slides; let i = index"
+        class="dot"
+        [class.active]="i === activeIndex"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
+
+    <div class="card">
+      <p class="card-text">Conecte-se com pessoas e eventos ao seu redor.</p>
+      <ion-button expand="block" class="primary-button" routerLink="/login">Entrar</ion-button>
+      <div class="card-footer">
+        <span>Ou</span>
+        <a routerLink="/cadastro">Criar Conta</a>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

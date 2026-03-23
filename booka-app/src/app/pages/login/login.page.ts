@@ -1,37 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
-import { 
-  IonContent, IonCard, IonSegment, IonSegmentButton, 
-  IonLabel, IonItem, IonInput, IonNote, IonButton, IonRow, IonCol, IonIcon
-} from '@ionic/angular/standalone';
-
+import { RouterModule, Router } from '@angular/router';
+import { IonContent, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { logoGoogle, logoApple, eyeOutline } from 'ionicons/icons'; 
+import { bookmark, eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule, 
-    FormsModule, 
-    RouterModule,
-    IonContent, IonCard, IonSegment, IonSegmentButton, 
-    IonLabel, IonItem, IonInput, IonNote, IonButton, IonRow, IonCol, IonIcon
-  ]
+  imports: [FormsModule, RouterModule, IonContent, IonIcon, IonInput, IonButton],
 })
-export class LoginPage implements OnInit {
-  
-  tipoUsuario: string = 'cliente'; 
+export class LoginPage {
+  email = '';
+  password = '';
+  showPassword = false;
 
-  constructor() { 
-    addIcons({ logoGoogle, logoApple, eyeOutline });
+  constructor(private router: Router) {
+    addIcons({ bookmark, eyeOutline, eyeOffOutline });
   }
 
-  ngOnInit() {}
-
+  signIn() {
+    this.router.navigate(['/home']);
+  }
 }

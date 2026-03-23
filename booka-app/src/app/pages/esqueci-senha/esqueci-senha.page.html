@@ -1,33 +1,47 @@
-<ion-content class="ion-padding app-background">
-  <div class="login-container">
-    <ion-card class="login-card">
+<ion-content class="premium-bg" [fullscreen]="true">
+  <!-- Fundo animado - Orbes de neon -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-      <div class="header-section ion-text-center">
-        <img src="assets/logo.jpeg" class="full-logo" alt="Booka Logo">
-        <h1>Recuperar Senha</h1>
-        <p>Digite seu e-mail cadastrado e enviaremos um link para você redefinir sua senha.</p>
+  <!-- Cartão de Vidro (Glassmorphism) -->
+  <div class="glass-container">
+    <div class="premium-glass-card">
+      <div class="premium-logo-wrap">
+        <img src="assets/logo.jpeg" alt="Booka" class="premium-logo" />
       </div>
 
-      <div class="form-section">
-        
-        <ion-item lines="none" class="custom-input">
-          <ion-label position="stacked">E-mail</ion-label>
-          <ion-input type="email" placeholder="exemplo@email.com"></ion-input>
-        </ion-item>
+      <h1 class="premium-title">Recuperar Senha</h1>
+      <p class="premium-subtitle">Digite seu e-mail cadastrado e enviaremos um link para você redefinir sua senha.</p>
 
-        <ion-button expand="block" class="main-button">
-          Enviar link de recuperação
+      <form [formGroup]="recoverForm" (ngSubmit)="recoverPassword()">
+        <div class="premium-input-group">
+          <label class="premium-label">E-mail</label>
+          <ion-input
+            class="premium-input"
+            [class.premium-input-error]="recoverForm.get('email')?.invalid && recoverForm.get('email')?.touched"
+            type="email"
+            placeholder="exemplo@email.com"
+            formControlName="email"
+          ></ion-input>
+          
+          <div class="premium-error-msg" *ngIf="recoverForm.get('email')?.invalid && recoverForm.get('email')?.touched">
+            Por favor, insira um e-mail válido.
+          </div>
+        </div>
+
+        <ion-button expand="block" type="submit" class="premium-btn" [disabled]="isLoading" style="margin-top: 32px;">
+          <span *ngIf="!isLoading">Enviar link de recuperação</span>
+          <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
         </ion-button>
+      </form>
 
+      <div class="premium-forgot-wrapper" style="justify-content: center; margin-top: 32px; margin-bottom: 0;">
+        <a routerLink="/login" class="premium-link" style="display: flex; align-items: center; gap: 8px;">
+          <ion-icon name="arrow-back-outline"></ion-icon> Voltar para o Login
+        </a>
       </div>
 
-      <div class="back-link-container ion-text-center">
-        <span class="link-text back-link" routerLink="/login">
-          <ion-icon name="arrow-back-outline"></ion-icon>
-          Voltar para o Login
-        </span>
-      </div>
-
-    </ion-card>
+    </div>
   </div>
 </ion-content>
