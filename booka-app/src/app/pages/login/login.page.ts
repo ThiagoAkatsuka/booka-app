@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { IonContent, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { bookmark, eyeOutline, eyeOffOutline } from 'ionicons/icons';
+import { eyeOutline, eyeOffOutline, logoGoogle, logoApple } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
@@ -17,10 +17,10 @@ export class LoginPage {
   showPassword = false;
 
   constructor(private router: Router) {
-    addIcons({ bookmark, eyeOutline, eyeOffOutline });
+    addIcons({ eyeOutline, eyeOffOutline, logoGoogle, logoApple });
   }
 
   signIn() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/dashboard']);
   }
 }

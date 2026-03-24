@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'esqueci-senha',
     loadComponent: () => import('./pages/esqueci-senha/esqueci-senha.page').then( m => m.EsqueciSenhaPage)
   },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
 ];

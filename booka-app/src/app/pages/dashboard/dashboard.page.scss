@@ -1,0 +1,344 @@
+/* --- OWNER B2B DASHBOARD THEME --- */
+.owner-bg {
+  --background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Typography Base */
+h1, h2, h3, h4, p { margin: 0; }
+
+/* Header */
+.owner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 20px 24px;
+
+  .main-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+  
+  .sub-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    margin-top: 4px;
+  }
+  
+  .notification-btn {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #334155;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    cursor: pointer;
+    
+    ion-icon { font-size: 22px; }
+    
+    .dot {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+  }
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 0 20px 24px;
+  
+  .metric-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid #f1f5f9;
+    
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      
+      .icon-wrap {
+        color: #4f46e5;
+        font-size: 18px;
+        display: flex;
+      }
+      
+      .card-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #475569;
+      }
+    }
+    
+    .card-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    
+    .card-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #059669; /* Green default */
+      
+      ion-icon { font-size: 14px; }
+      
+      &.up { color: #10b981; }
+      &:not(.up) { color: #ef4444; }
+    }
+  }
+}
+
+/* Section Shared */
+.section-container {
+  padding: 0 20px;
+  margin-bottom: 24px;
+  
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    
+    .left-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    
+    .badge-light {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+    
+    .link-action {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4f46e5;
+      text-decoration: none;
+    }
+  }
+}
+
+/* Chart Card */
+.chart-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  border: 1px solid #f1f5f9;
+  
+  .chart-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #4f46e5;
+    letter-spacing: -1px;
+  }
+  
+  .chart-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+    margin-top: 4px;
+    margin-bottom: 32px;
+  }
+  
+  .bar-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 120px;
+    
+    .bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      
+      .bar-wrapper {
+        height: 100px;
+        width: 32px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+      
+      .bar-fill {
+        width: 100%;
+        background: #e0e7ff;
+        border-radius: 6px;
+        transition: height 0.5s ease;
+        
+        &.active-bar {
+          background: #4f46e5;
+        }
+      }
+      
+      .bar-day {
+        font-size: 12px;
+        font-weight: 600;
+        color: #94a3b8;
+      }
+    }
+  }
+}
+
+/* Appointments List */
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  .apt-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    border: 1px solid #f1f5f9;
+    
+    .apt-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 50px;
+      
+      .time-main { font-size: 15px; font-weight: 700; color: #334155; }
+      .time-meridiem { font-size: 10px; font-weight: 800; color: #94a3b8; }
+    }
+    
+    .apt-details {
+      flex: 1;
+      border-left: 1px solid #e2e8f0;
+      padding-left: 16px;
+      
+      h4 { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+      p { font-size: 13px; font-weight: 500; color: #64748b; }
+    }
+    
+    .apt-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .status-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 6px 10px;
+        border-radius: 8px;
+        
+        &.confirmed { background: #d1fae5; color: #059669; }
+        &.pending { background: #fef3c7; color: #d97706; }
+        &.cancelled { background: #fee2e2; color: #dc2626; }
+      }
+      
+      .menu-btn {
+        background: transparent;
+        border: 1px solid #e2e8f0;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #64748b;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.nav-spacer { height: 100px; }
+
+/* Bottom Tabs */
+.owner-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.03);
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid #f1f5f9;
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #94a3b8;
+    flex: 1;
+    cursor: pointer;
+    
+    ion-icon { font-size: 24px; transition: all 0.2s ease; }
+    span { font-size: 11px; font-weight: 600;  transition: all 0.2s ease; }
+    
+    &.active {
+      color: #4f46e5;
+    }
+  }
+  
+  .nav-fab {
+    position: relative;
+    top: -20px;
+    
+    .fab-btn {
+      width: 56px;
+      height: 56px;
+      background: #4f46e5;
+      border-radius: 50%;
+      border: 4px solid #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+      
+      ion-icon { font-size: 28px; }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { IonContent, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
+import { arrowBackOutline, eyeOutline, eyeOffOutline, logoGoogle, logoApple } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,11 +21,11 @@ export class CadastroPage {
   showConfirm = false;
 
   constructor(private router: Router) {
-    addIcons({ arrowBackOutline, eyeOutline, eyeOffOutline });
+    addIcons({ arrowBackOutline, eyeOutline, eyeOffOutline, logoGoogle, logoApple });
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/dashboard']);
   }
 
   signUp() {

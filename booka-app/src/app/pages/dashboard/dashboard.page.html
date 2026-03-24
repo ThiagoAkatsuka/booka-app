@@ -1,0 +1,106 @@
+<ion-content class="owner-bg" [fullscreen]="true">
+  
+  <!-- HEADER -->
+  <div class="owner-header">
+    <div class="header-titles">
+      <h1 class="main-title">Painel de Gestão</h1>
+      <p class="sub-title">Olá, Proprietário</p>
+    </div>
+    <button class="notification-btn">
+      <ion-icon name="notifications-outline"></ion-icon>
+      <span class="dot"></span>
+    </button>
+  </div>
+
+  <!-- METRICS CARDS -->
+  <div class="metrics-grid">
+    <div class="metric-card" *ngFor="let m of metrics">
+      <div class="card-top">
+        <div class="icon-wrap">
+          <ion-icon [name]="m.icon"></ion-icon>
+        </div>
+        <span class="card-label">{{ m.title }}</span>
+      </div>
+      <h2 class="card-value">{{ m.value }}</h2>
+      <div class="card-trend" [class.up]="m.isUp">
+        <ion-icon name="trending-up-outline"></ion-icon>
+        <span>{{ m.trend }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY PERFORMANCE CHART -->
+  <div class="section-container">
+    <div class="section-head">
+      <div class="left-head">
+        <h3>Desempenho Semanal</h3>
+        <span class="badge-light">Últimos 7 dias</span>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h1 class="chart-value">{{ weeklyTotal }}</h1>
+      <p class="chart-label">Faturamento total da semana</p>
+      
+      <div class="bar-chart">
+        <div class="bar-col" *ngFor="let col of weeklyPerformance">
+          <div class="bar-wrapper">
+            <div class="bar-fill" [style.height.%]="col.height" [class.active-bar]="col.active"></div>
+          </div>
+          <span class="bar-day">{{ col.day }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPOINTMENTS LIST -->
+  <div class="section-container" style="margin-top: 24px;">
+    <div class="section-head">
+      <h3>Agenda de Hoje</h3>
+      <a href="#" class="link-action">Ver tudo</a>
+    </div>
+
+    <div class="appointment-list">
+      <div class="apt-item" *ngFor="let apt of appointments">
+        <div class="apt-time">
+          <span class="time-main">{{ apt.time.split(' ')[0] }}</span>
+          <span class="time-meridiem">{{ apt.time.split(' ')[1] }}</span>
+        </div>
+        <div class="apt-details">
+          <h4>{{ apt.client }}</h4>
+          <p>{{ apt.service }}</p>
+        </div>
+        <div class="apt-actions">
+          <span class="status-badge" [ngClass]="apt.statusId">{{ apt.status }}</span>
+          <button class="menu-btn"><ion-icon name="ellipsis-horizontal"></ion-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-spacer"></div>
+</ion-content>
+
+<!-- BOTTOM TABS (Owner Style) -->
+<div class="owner-bottom-nav">
+  <div class="nav-item active">
+    <ion-icon name="home"></ion-icon>
+    <span>Início</span>
+  </div>
+  <div class="nav-item">
+    <ion-icon name="calendar-clear-outline"></ion-icon>
+    <span>Agenda</span>
+  </div>
+  <div class="nav-fab">
+    <button class="fab-btn">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </div>
+  <div class="nav-item">
+    <ion-icon name="cut-outline"></ion-icon>
+    <span>Serviços</span>
+  </div>
+  <div class="nav-item">
+    <ion-icon name="settings-outline"></ion-icon>
+    <span>Ajustes</span>
+  </div>
+</div>
