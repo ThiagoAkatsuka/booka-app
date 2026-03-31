@@ -1,0 +1,197 @@
+<ion-content class="agendar-bg" [fullscreen]="true">
+
+  <!-- TOP BAR -->
+  <div class="agendar-topbar">
+    <button class="back-btn" (click)="goBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <h1 class="topbar-title">{{ stepTitles[currentStep - 1] }}</h1>
+    <div class="step-counter">{{ currentStep }}/4</div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-container">
+    <div class="progress-track">
+      <div class="progress-fill" [style.width.%]="(currentStep / 4) * 100"></div>
+    </div>
+  </div>
+
+  <!-- ========== STEP 1: SELECIONAR SERVIÇO ========== -->
+  <div class="step-content" *ngIf="currentStep === 1">
+    <p class="step-hint">Escolha o serviço desejado</p>
+
+    <div class="service-grid">
+      <div class="service-card" *ngFor="let s of services"
+           [class.selected]="selectedService?.id === s.id"
+           (click)="selectService(s)">
+        <div class="service-emoji">{{ s.emoji }}</div>
+        <h4 class="service-name">{{ s.name }}</h4>
+        <p class="service-duration">{{ s.duration }}</p>
+        <p class="service-price">R$ {{ s.price }}</p>
+        <div class="check-mark" *ngIf="selectedService?.id === s.id">
+          <ion-icon name="checkmark-circle"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== STEP 2: DATA E HORÁRIO ========== -->
+  <div class="step-content" *ngIf="currentStep === 2">
+    <p class="step-hint">Escolha a melhor data e horário</p>
+
+    <!-- Calendário inline simplificado -->
+    <div class="calendar-card">
+      <div class="cal-header">
+        <button class="cal-nav" (click)="prevMonth()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <h3 class="cal-month">{{ currentMonthLabel }}</h3>
+        <button class="cal-nav" (click)="nextMonth()">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="cal-weekdays">
+        <span *ngFor="let d of weekdays">{{ d }}</span>
+      </div>
+
+      <div class="cal-days">
+        <div *ngFor="let day of calendarDays" class="cal-day"
+             [class.empty]="!day"
+             [class.today]="day === todayDate"
+             [class.selected-day]="day === selectedDay"
+             [class.past]="day && day < todayDate"
+             (click)="day && day >= todayDate && selectDay(day)">
+          {{ day || '' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Slots de Horário -->
+    <div *ngIf="selectedDay" class="slots-section">
+      <p class="slots-label">Horários disponíveis para o dia <strong>{{ selectedDay }}/{{ currentMonth + 1 }}</strong>:</p>
+      <div class="slots-grid">
+        <div class="slot-chip" *ngFor="let slot of availableSlots"
+             [class.selected-slot]="selectedSlot === slot"
+             [class.unavailable]="slot.unavailable"
+             (click)="!slot.unavailable && selectSlot(slot)">
+          {{ slot.time }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== STEP 3: DADOS DO CLIENTE ========== -->
+  <div class="step-content" *ngIf="currentStep === 3">
+    <p class="step-hint">Preencha suas informações de contato</p>
+
+    <div class="form-group">
+      <label class="form-label">Nome completo *</label>
+      <div class="input-wrap">
+        <ion-icon name="person-outline"></ion-icon>
+        <input class="form-input" type="text" placeholder="Seu nome" [(ngModel)]="clientData.name" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Telefone / WhatsApp *</label>
+      <div class="input-wrap">
+        <ion-icon name="call-outline"></ion-icon>
+        <input class="form-input" type="tel" placeholder="(11) 99999-9999" [(ngModel)]="clientData.phone" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">E-mail</label>
+      <div class="input-wrap">
+        <ion-icon name="mail-outline"></ion-icon>
+        <input class="form-input" type="email" placeholder="seu@email.com" [(ngModel)]="clientData.email" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Observações (opcional)</label>
+      <div class="input-wrap textarea-wrap">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+        <textarea class="form-input form-textarea" placeholder="Alguma informação importante..." [(ngModel)]="clientData.notes" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== STEP 4: CONFIRMAÇÃO ========== -->
+  <div class="step-content" *ngIf="currentStep === 4">
+    <div class="confirm-hero">
+      <div class="confirm-emoji">🗓️</div>
+      <h2 class="confirm-title">Revise seu agendamento</h2>
+      <p class="confirm-subtitle">Confirme os dados antes de finalizar</p>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-row">
+        <div class="summary-icon"><ion-icon name="cut-outline"></ion-icon></div>
+        <div class="summary-info">
+          <span class="summary-label">Serviço</span>
+          <span class="summary-value">{{ selectedService?.name }}</span>
+        </div>
+        <span class="summary-price">R$ {{ selectedService?.price }}</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row">
+        <div class="summary-icon"><ion-icon name="calendar-outline"></ion-icon></div>
+        <div class="summary-info">
+          <span class="summary-label">Data</span>
+          <span class="summary-value">{{ selectedDay }}/{{ currentMonth + 1 }}/{{ currentYear }}</span>
+        </div>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row">
+        <div class="summary-icon"><ion-icon name="time-outline"></ion-icon></div>
+        <div class="summary-info">
+          <span class="summary-label">Horário</span>
+          <span class="summary-value">{{ selectedSlot?.time }}</span>
+        </div>
+        <span class="summary-duration">{{ selectedService?.duration }}</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row">
+        <div class="summary-icon"><ion-icon name="person-outline"></ion-icon></div>
+        <div class="summary-info">
+          <span class="summary-label">Cliente</span>
+          <span class="summary-value">{{ clientData.name }}</span>
+          <span class="summary-sub">{{ clientData.phone }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sucesso -->
+    <div class="confirmed-state" *ngIf="isConfirmed">
+      <div class="success-icon">✅</div>
+      <h2>Agendamento Confirmado!</h2>
+      <p>Você receberá uma confirmação no WhatsApp em breve.</p>
+      <button class="btn-outline" (click)="resetFlow()">Fazer novo agendamento</button>
+    </div>
+  </div>
+
+  <!-- NAV SPACER -->
+  <div style="height: 120px;"></div>
+</ion-content>
+
+<!-- BOTTOM ACTION BAR -->
+<div class="action-bar" *ngIf="!isConfirmed">
+  <button class="btn-sec" *ngIf="currentStep > 1" (click)="prevStep()">
+    <ion-icon name="chevron-back-outline"></ion-icon> Voltar
+  </button>
+
+  <button class="btn-primary" [disabled]="!canProceed()" (click)="currentStep < 4 ? nextStep() : confirm()">
+    <span *ngIf="currentStep < 4">Próximo <ion-icon name="chevron-forward-outline"></ion-icon></span>
+    <span *ngIf="currentStep === 4">
+      <ion-icon name="checkmark-outline"></ion-icon> Confirmar Agendamento
+    </span>
+  </button>
+</div>

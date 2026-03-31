@@ -26,4 +26,8 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
   },
+  {
+    path: 'agendamento',
+    loadComponent: () => import('./pages/agendamento/agendamento.page').then( m => m.AgendamentoPage)
+  },
 ];
