@@ -20,6 +20,7 @@ export class CadastroComponent {
   
   // Nova variável para controlar o dropdown mágico
   showRequirements = false;
+  role: string = 'CLIENTE';
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -66,9 +67,13 @@ export class CadastroComponent {
       return;
     }
 
-    this.authService.register(this.fullName, this.email, this.password).subscribe({
+    this.authService.register(this.fullName, this.email, this.password, this.role).subscribe({
       next: () => {
-        this.router.navigate(['/onboarding']);
+        if (this.role === 'PROFISSIONAL') {
+          this.router.navigate(['/onboarding']);
+        } else {
+          this.router.navigate(['/explorar']);
+        }
       },
       error: (err) => {
         alert('Erro ao realizar cadastro.');

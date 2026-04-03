@@ -1,77 +1,242 @@
-<div class="agendar-container">
-  <header class="agendar-header">
-    <h1>Barbearia do João</h1>
-    <p>Agende seu horário com facilidade</p>
-  </header>
+<div class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col font-['Inter']">
 
-  <main class="agendar-content">
-    @if (step === 1) {
-      <div class="step-card fade-in">
-        <h2>Selecione o Serviço</h2>
-        <div class="servicos-list">
-          <div class="servico-item" (click)="selecionarServico('Corte')">
-            <div class="servico-info">
-              <h3>Corte de Cabelo</h3>
-              <p>Corte tradicional na tesoura ou máquina.</p>
+    <!-- Navbar Compacta -->
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/60">
+        <div class="flex items-center justify-between px-6 h-16 max-w-screen-2xl mx-auto">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 shrink-0 cursor-pointer" routerLink="/">
+                <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#004ac6" height="64" rx="18" width="64"></rect>
+                    <g transform="translate(8, 8)">
+                        <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
+                            fill="#FFFFFF" fill-rule="evenodd"></path>
+                    </g>
+                </svg>
+                <span class="text-2xl font-black tracking-tighter text-[#004ac6]">Booka</span>
             </div>
-            <div class="servico-preco">R$ 40,00</div>
-          </div>
-          <div class="servico-item" (click)="selecionarServico('Barba')">
-             <div class="servico-info">
-              <h3>Barba</h3>
-              <p>Modelagem e navalha com toalha quente.</p>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+                <button class="hidden lg:block text-sm font-bold text-slate-800 px-4 py-2 hover:bg-slate-100 transition-colors rounded-lg">Suporte</button>
+                <button routerLink="/login" class="text-sm font-bold text-[#004ac6] px-4 py-2 hover:bg-blue-50 transition-colors rounded-lg">Entrar</button>
+                <button routerLink="/cadastro" class="bg-[#004ac6] text-white px-5 py-2 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors shadow-sm">Cadastrar-se</button>
             </div>
-            <div class="servico-preco">R$ 35,00</div>
-          </div>
         </div>
-      </div>
-    }
+    </nav>
 
-    @if (step === 2) {
-      <div class="step-card fade-in">
-        <button class="btn-voltar" (click)="step = 1">← Voltar</button>
-        <h2>Selecione o Horário</h2>
-        <p class="servico-escolhido">Serviço: <strong>{{ servicoSelecionado }}</strong></p>
+    <main class="pt-16 flex-grow" *ngIf="profissional">
+        <!-- Modern Clean Hero Section -->
+        <section class="relative pt-24 pb-16 w-full bg-gradient-to-b from-blue-50/80 via-blue-50/30 to-[#f8fafc] overflow-hidden">
+            <!-- Background Decorative Glow -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[400px] h-[400px] bg-blue-400/20 blur-[100px] rounded-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[300px] h-[300px] bg-teal-400/10 blur-[80px] rounded-full pointer-events-none"></div>
 
-        <div class="dias-list">
-          <h3>Hoje, 15 de Abril</h3>
-          <div class="horarios-grid">
-             <button class="horario-pill" (click)="selecionarHorario('Hoje', '09:00')">09:00</button>
-             <button class="horario-pill" (click)="selecionarHorario('Hoje', '10:00')">10:00</button>
-             <button class="horario-pill" (click)="selecionarHorario('Hoje', '11:00')">11:00</button>
-             <button class="horario-pill" (click)="selecionarHorario('Hoje', '14:00')">14:00</button>
-          </div>
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+                <!-- Avatar Frame -->
+                <div class="relative shrink-0">
+                    <div class="w-40 h-40 md:w-52 md:h-52 rounded-[2.5rem] border-[6px] border-white shadow-xl overflow-hidden bg-white rotate-[-3deg] hover:rotate-0 transition-transform duration-500 ease-out">
+                        <img alt="{{ profissional?.nome }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+                             [src]="profissional?.img || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCw8xHBhQsIXqMUIojdvu58Yg9jRmMsxWSqBO57lMWPTzlfSqR38l0NoepOj0RL8pbSZbCZ2aFfgIdWRNml6vvJxq5DrEVEpxDjc55IIxNR-BlafNbx8olvqE0m0vRBd4b7XiLcJ-NB910P1kZdnQ6yzXaNjjaaWPmUFhZs5obbqixnnaNiawEgJ2YJcgRkFxf3oUIdfGkZOFEJ8hXj0g7fJpKsxBt6m8QIgpM-89frgGPBRQMbm_0qwqHLPKhorIeyWDy49gCWSU4'" />
+                    </div>
+                    <!-- Badge -->
+                    <div class="absolute -bottom-4 -right-2 bg-gradient-to-r from-[#004ac6] to-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-black shadow-lg shadow-blue-500/30 flex items-center gap-1 border-4 border-white">
+                        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span> Em Alta
+                    </div>
+                </div>
+                
+                <!-- Info block -->
+                <div class="flex-1 mt-4 md:mt-0 text-center md:text-left">
+                    <div class="inline-flex items-center gap-1 bg-amber-50 text-amber-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest mb-5 shadow-sm border border-amber-100">
+                        <span class="material-symbols-outlined text-[14px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span> 
+                        4.9 Excelente (120+ avaliações)
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 mb-3 bg-clip-text">{{ profissional?.nome }}</h1>
+                    <p class="text-xl md:text-2xl font-bold text-[#004ac6] mb-5">{{ profissional?.profissao || 'Consultor Especialista' }}</p>
+                    <p class="text-slate-500 max-w-2xl text-lg leading-relaxed font-medium mx-auto md:mx-0">
+                        Especialista com serviços premium listados no catálogo. Reputação consolidada com vasta experiência e certificações focadas em alta performance.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Layout -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-10 pb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 lg:gap-16">
+
+                <!-- Left Column: Services Available -->
+                <div class="space-y-8">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-200/60">
+                        <h2 class="text-3xl font-black tracking-tight text-slate-900">Serviços</h2>
+                        <span class="text-sm font-bold text-slate-400 tracking-widest uppercase">Escolha 1</span>
+                    </div>
+
+                    <div class="grid gap-5">
+                        <!-- Service Cards Loop -->
+                        @for (servico of profissional?.servicos; track servico.id) {
+                        <div class="group relative bg-white rounded-[2rem] transition-all duration-300 shadow-sm border-2 cursor-pointer
+                                    hover:shadow-[0_20px_40px_-15px_rgba(0,74,198,0.1)] hover:-translate-y-1 p-6 md:p-8"
+                            (click)="selecionarServico(servico)"
+                            [ngClass]="servicoSelecionado?.id === servico.id ? 'border-[#004ac6] shadow-md ring-4 ring-blue-500/10' : 'border-transparent'">
+                            
+                            <!-- Selection Checkbox floating top right -->
+                            <div class="absolute top-6 right-6 md:top-8 md:right-8 w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-300"
+                                 [ngClass]="servicoSelecionado?.id === servico.id ? 'border-[#004ac6] bg-[#004ac6] text-white' : 'border-slate-300 text-transparent group-hover:border-[#004ac6]/30'">
+                                <span class="material-symbols-outlined text-[18px] font-bold">check</span>
+                            </div>
+
+                            <div class="pr-12 md:pr-16 mb-6">
+                                <h3 class="text-2xl font-bold text-slate-900 mb-3">{{ servico.nome }}</h3>
+                                <p class="text-slate-500 leading-relaxed font-medium">Atendimento excepcional garantindo os resultados e a extrema qualidade que seu projeto exige, do ínicio ao fim.</p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-5 border-t border-slate-100">
+                                <div class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100">
+                                    <span class="material-symbols-outlined text-[#004ac6] text-[20px]">schedule</span>
+                                    <span class="font-bold text-slate-700">{{ servico.duracao }} min</span>
+                                </div>
+                                <div class="text-left sm:text-right">
+                                    <p class="text-xs font-bold uppercase tracking-widest text-[#004ac6] mb-0 ml-1">Preço Fixo</p>
+                                    <p class="text-3xl font-black text-slate-900">{{ servico.preco | currency:'BRL' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Right Column: Booking Sidebar -->
+                <aside class="relative">
+                    <div class="sticky top-24 space-y-6">
+                        <!-- Card de Agendamento Moderno -->
+                        <div class="bg-white rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.06)] p-8 md:p-10 border border-slate-100 relative overflow-hidden">
+                            <!-- Detail Decal top right -->
+                            <div class="absolute -top-10 -right-10 w-24 h-24 bg-blue-50 rounded-full blur-2xl pointer-events-none"></div>
+
+                            <h2 class="text-2xl font-black mb-8 flex items-center gap-3 text-slate-900 relative z-10">
+                                <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#004ac6]">
+                                    <span class="material-symbols-outlined">calendar_month</span>
+                                </div>
+                                Agendamento
+                            </h2>
+
+                            <!-- Area do Calendario (MANTIDA INTACTA) -->
+                            <div class="mb-8 relative z-10">
+                                <div class="flex items-center justify-between mb-5">
+                                    <span class="font-black text-slate-800 text-lg tracking-tight">{{ mesAtualNome }}</span>
+                                    <div class="flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-100">
+                                        <button (click)="mudarMes(-1)" class="p-1.5 hover:bg-white hover:shadow-sm rounded-lg transition-all text-slate-500 hover:text-[#004ac6]">
+                                            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                                        </button>
+                                        <div class="w-[1px] h-4 bg-slate-200"></div>
+                                        <button (click)="mudarMes(1)" class="p-1.5 hover:bg-white hover:shadow-sm rounded-lg transition-all text-slate-500 hover:text-[#004ac6]">
+                                            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-slate-400 mb-3 tracking-widest">
+                                    <span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SAB</span>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 sm:gap-2">
+                                    @for (dia of diasDoMes; track $index) {
+                                        @if (dia === null) {
+                                            <div class="aspect-square"></div>
+                                        } @else {
+                                            <button (click)="selecionarData(dia)" 
+                                                    [ngClass]="diaSelecionado === dia ? 'bg-[#004ac6] text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-500/20 ring-offset-2' : 'hover:bg-blue-50 hover:text-[#004ac6] text-slate-700'"
+                                                    class="aspect-square rounded-2xl flex items-center justify-center text-[15px] font-bold transition-all cursor-pointer">
+                                                {{ dia }}
+                                            </button>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            
+                            <!-- Time Slots -->
+                            <div class="mb-8" *ngIf="horariosDisponiveis.length > 0">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">Selecione uma Hora</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    @for (hora of horariosDisponiveis; track hora) {
+                                        <button (click)="selecionarHorario(hora)" 
+                                                [ngClass]="horarioSelecionado === hora ? 'bg-[#004ac6] text-white border-[#004ac6] shadow-md shadow-blue-500/20' : 'bg-slate-50 text-slate-600 border-slate-100 hover:border-blue-300 hover:bg-blue-50 hover:text-[#004ac6]'" 
+                                                class="py-3 px-4 rounded-xl border-2 transition-all text-sm font-bold flex items-center justify-center gap-2 group">
+                                            {{ hora }} <span *ngIf="horarioSelecionado === hora" class="material-symbols-outlined text-[18px]">done</span>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Booking Modern Summary -->
+                            <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-3xl space-y-4 mb-8 text-white shadow-lg relative z-10">
+                                <div class="flex justify-between items-start gap-4">
+                                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Serviço</span>
+                                    <span class="text-sm font-medium text-slate-100 text-right">{{ servicoSelecionado?.nome || 'Nenhum selecionado' }}</span>
+                                </div>
+                                <div class="flex justify-between items-center gap-4">
+                                    <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Quando</span>
+                                    <span class="text-sm font-medium text-slate-100 text-right">
+                                        {{ dataSelecionada ? (dataSelecionada | date:'dd/MM') : '--' }} {{ horarioSelecionado ? 'às ' + horarioSelecionado : '' }}
+                                    </span>
+                                </div>
+                                <div class="pt-4 border-t border-slate-700 flex justify-between items-end mt-2">
+                                    <span class="text-sm font-bold text-slate-300">Total</span>
+                                    <span class="text-3xl font-black text-white">{{ (servicoSelecionado?.preco || 0) | currency:'BRL' }}</span>
+                                </div>
+                            </div>
+
+                            <button (click)="finalizarAgendamento()"
+                                [disabled]="!servicoSelecionado || !dataSelecionada || !horarioSelecionado"
+                                [ngClass]="!servicoSelecionado || !dataSelecionada || !horarioSelecionado ? 'opacity-50 cursor-not-allowed bg-slate-200 text-slate-400' : 'bg-[#004ac6] text-white hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] shadow-[0_10px_20px_-10px_rgba(0,74,198,0.5)]'"
+                                class="w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2 relative z-10">
+                                Confirmar e Avançar <span class="material-symbols-outlined text-[24px]">trending_flat</span>
+                            </button>
+                            <p class="text-center text-xs text-slate-400 mt-5 font-bold flex items-center justify-center gap-1 uppercase tracking-wider relative z-10">
+                                <span class="material-symbols-outlined text-[14px]">local_police</span> Compra e Reseva Segura
+                            </p>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
         </div>
-      </div>
-    }
+    </main>
 
-    @if (step === 3) {
-      <div class="step-card fade-in">
-        <button class="btn-voltar" (click)="step = 2">← Voltar</button>
-        <h2>Seus Dados</h2>
-        <p class="servico-escolhido">Serviço: <strong>{{ servicoSelecionado }}</strong> às <strong>{{ horarioSelecionado }}</strong></p>
-
-        <form class="agendamento-form" (ngSubmit)="confirmarAgendamento()">
-          <div class="form-group">
-            <label for="nome">Seu Nome</label>
-            <input type="text" id="nome" name="nome" [(ngModel)]="clienteNome" required placeholder="Ex: João da Silva">
-          </div>
-          <div class="form-group">
-            <label for="whatsapp">Seu WhatsApp</label>
-            <input type="tel" id="whatsapp" name="whatsapp" [(ngModel)]="clienteWhatsapp" required placeholder="(00) 00000-0000">
-          </div>
-          <button type="submit" class="btn-confirmar" [disabled]="!clienteNome || !clienteWhatsapp">Confirmar Agendamento</button>
-        </form>
-      </div>
-    }
-
-    @if (step === 4) {
-      <div class="step-card success fade-in">
-        <div class="success-icon">✓</div>
-        <h2>Agendamento Confirmado!</h2>
-        <p>Olá <strong>{{ clienteNome }}</strong>, seu horário para <strong>{{ servicoSelecionado }}</strong> às <strong>{{ horarioSelecionado }}</strong> foi marcado com sucesso.</p>
-        <p>Enviamos uma mensagem no seu WhatsApp ({{ clienteWhatsapp }}).</p>
-      </div>
-    }
-  </main>
+    <!-- Footer -->
+    <footer class="bg-[#f2f4f6] dark:bg-slate-800 w-full py-12 px-8 font-['Inter'] leading-relaxed mt-auto border-t border-slate-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            <div class="space-y-4">
+                <div class="flex items-center gap-2 text-slate-900 dark:text-white">
+                    <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <rect fill="#2563EB" height="64" rx="18" width="64"></rect>
+                        <g transform="translate(8, 8)">
+                            <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
+                                fill="#FFFFFF" fill-rule="evenodd"></path>
+                        </g>
+                    </svg>
+                    <span class="font-bold text-xl">Booka</span>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 max-w-xs">Sua plataforma definitiva para encontrar e
+                    contratar serviços profissionais com segurança.</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">© 2024 Booka. Todos os direitos reservados.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-3">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Marketplace</h4>
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
+                        href="#">Sobre Nós</a>
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
+                        href="#">Como Funciona</a>
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
+                        href="#">Suporte</a>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Legal</h4>
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
+                        href="#">Privacidade</a>
+                    <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
+                        href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>

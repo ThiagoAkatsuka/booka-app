@@ -15,11 +15,13 @@ import { AgendarComponent } from './pages/agendar/agendar.component';
 import { OnboardingComponent } from './pages/onboarding/onboarding.component';
 import { NovaSenhaComponent } from './pages/nova-senha/nova-senha.component';
 import { HomeMarketplaceComponent } from './pages/home-marketplace/home-marketplace.component';
+import { ExplorarComponent } from './pages/explorar/explorar.component';
 import { authGuard } from './guards/auth.guard';
 
 
 export const routes: Routes = [
   { path: '', component: HomeMarketplaceComponent }, // Rota Nova livre
+  { path: 'explorar', component: ExplorarComponent }, // Rota de Resultados Livre
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent }, // Rota de Login livre
   { path: 'agendar/:idLoja', component: AgendarComponent }, // Rota pública

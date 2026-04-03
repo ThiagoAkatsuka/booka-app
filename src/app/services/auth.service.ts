@@ -11,22 +11,26 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   login(email: string, senha: string) {
-    return this.http.post<{ token: string, usuario: any }>(`${this.apiUrl}/auth/login`, { email, senha })
+    return this.http.post<{ token: string, usuario?: any }>(`${this.apiUrl}/auth/login`, { email, senha })
       .pipe(
         tap(response => {
           if (response.token) {
             localStorage.setItem('token', response.token);
+            const role = response.usuario?.role || 'CLIENTE';
+            localStorage.setItem('role', role);
           }
         })
       );
   }
 
-  register(nome: string, email: string, senha: string) {
-    return this.http.post<{ token: string, usuario: any }>(`${this.apiUrl}/auth/register`, { nome, email, senha })
+  register(nome: string, email: string, senha: string, role: string) {
+    return this.http.post<{ token: string, usuario?: any }>(`${this.apiUrl}/auth/register`, { nome, email, senha, role })
       .pipe(
         tap(response => {
           if (response.token) {
             localStorage.setItem('token', response.token);
+            const userRole = response.usuario?.role || role || 'CLIENTE';
+            localStorage.setItem('role', userRole);
           }
         })
       );
@@ -34,10 +38,16 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   isLoggedIn(): boolean {
     if (typeof window === 'undefined') return false; // Compatibilidade SSR
     return !!localStorage.getItem('token');
+  }
+  
+  getRole(): string {
+    if (typeof window === 'undefined') return 'CLIENTE';
+    return localStorage.getItem('role') || 'CLIENTE';
   }
 }

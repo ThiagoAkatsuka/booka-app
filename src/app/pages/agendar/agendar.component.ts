@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LojaService } from '../../services/loja.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-agendar',
@@ -10,37 +12,100 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './agendar.component.html',
   styleUrl: './agendar.component.css'
 })
-export class AgendarComponent {
+export class AgendarComponent implements OnInit {
   idLoja: string | null = null;
+  profissional: any = null;
   step = 1;
 
   servicoSelecionado: any = null;
-  dataSelecionada: string | null = null;
+  dataSelecionada: Date | null = null;
   horarioSelecionado: string | null = null;
 
   clienteNome: string = '';
   clienteWhatsapp: string = '';
 
-  constructor(private route: ActivatedRoute) {
+  mesAtualNome: string = '';
+  diasDoMes: (number | null)[] = [];
+  dataAtual: Date = new Date();
+  diaSelecionado: number | null = null;
+  horariosDisponiveis: string[] = [];
+
+  ngOnInit() {
+    this.gerarCalendario(this.dataAtual);
+  }
+
+  gerarCalendario(data: Date) {
+    const ano = data.getFullYear();
+    const mes = data.getMonth();
+    
+    const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+    this.mesAtualNome = `${nomesMeses[mes]} ${ano}`;
+
+    const primeiroDia = new Date(ano, mes, 1).getDay();
+    const ultimoDia = new Date(ano, mes + 1, 0).getDate();
+
+    this.diasDoMes = Array(primeiroDia).fill(null);
+    for (let i = 1; i <= ultimoDia; i++) {
+      this.diasDoMes.push(i);
+    }
+  }
+
+  mudarMes(delta: number) {
+     this.dataAtual.setMonth(this.dataAtual.getMonth() + delta);
+     this.gerarCalendario(this.dataAtual);
+     this.diaSelecionado = null;
+     this.dataSelecionada = null;
+     this.horarioSelecionado = null;
+     this.horariosDisponiveis = [];
+  }
+
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private lojaService: LojaService,
+    private authService: AuthService
+  ) {
     this.route.paramMap.subscribe(params => {
       this.idLoja = params.get('idLoja');
+      if (this.idLoja) {
+        this.lojaService.buscarProfissionalPorId(this.idLoja).subscribe(res => {
+          this.profissional = res;
+          if (this.profissional?.servicos?.length > 0) {
+            this.servicoSelecionado = this.profissional.servicos[0];
+          }
+        });
+      }
     });
   }
 
   selecionarServico(servico: any) {
     this.servicoSelecionado = servico;
-    this.step = 2;
   }
 
-  selecionarHorario(data: string, horario: string) {
-    this.dataSelecionada = data;
-    this.horarioSelecionado = horario;
-    this.step = 3;
+  selecionarData(dia: number) {
+    this.diaSelecionado = dia;
+    this.dataSelecionada = new Date(this.dataAtual.getFullYear(), this.dataAtual.getMonth(), dia);
+    this.horarioSelecionado = null;
+    
+    // Simula a busca de horários disponíveis para o dia escolhido na API
+    this.horariosDisponiveis = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
   }
 
-  confirmarAgendamento() {
-    if (this.clienteNome && this.clienteWhatsapp) {
-      this.step = 4;
+  selecionarHorario(hora: string) {
+    this.horarioSelecionado = hora;
+  }
+
+  finalizarAgendamento() {
+    if (!this.servicoSelecionado || !this.dataSelecionada || !this.horarioSelecionado) {
+      alert("Selecione um serviço, uma data e um horário para continuar.");
+      return;
+    }
+
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/cadastro']);
+    } else {
+      alert('Agendamento confirmado com sucesso!');
+      this.router.navigate(['/dashboard']);
     }
   }
 }

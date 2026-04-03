@@ -26,7 +26,12 @@ export class LoginComponent {
 
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        const role = this.authService.getRole();
+        if (role === 'PROFISSIONAL') {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/explorar']);
+        }
       },
       error: (err) => {
         alert('Erro ao fazer login. Verifique suas credenciais.');
