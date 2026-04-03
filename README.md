@@ -1,85 +1,142 @@
-Ficou excelente! A evolução que o projeto teve hoje foi absurda. Saiu de um simples trabalho acadêmico para uma arquitetura de software real, com tratamento de erros, navegação dinâmica e separação de perfis.
+Aqui está uma versão revisada e mais profissional do seu README, com melhorias de clareza, padronização e tom técnico:
 
-Para coroar esse trabalho e deixar o repositório perfeito para o seu professor e para o resto da equipe (Rubens no Back-end e Thiago no Mobile) entenderem como rodar, preparei um `README.md` completo e profissional.
+````markdown
+# 📅 Booka — Marketplace de Agendamento de Serviços
 
-Copie o código abaixo e cole no arquivo `README.md` que está na raiz do seu projeto (substituindo o texto padrão que o Angular coloca lá):
+Bem-vindo ao repositório do **Front-end Web do Booka**, uma plataforma no modelo **Marketplace (multi-tenant)** projetada para conectar profissionais independentes a clientes que desejam agendar serviços de forma prática, segura e eficiente.
 
-***
-
-```markdown
-# 📅 Booka - Marketplace de Agendamento de Serviços
-
-Bem-vindo ao repositório Front-end Web do **Booka**, uma plataforma no estilo Marketplace (Multi-tenant) projetada para conectar profissionais independentes a clientes que buscam agendar serviços com facilidade e segurança.
-
-Este projeto é desenvolvido em **Angular** e utiliza **Tailwind CSS** para uma interface moderna, responsiva e focada em conversão.
+A aplicação é desenvolvida em **Angular** e utiliza **Tailwind CSS** para oferecer uma interface moderna, responsiva e orientada à conversão.
 
 ---
 
-## 🚀 Principais Funcionalidades e Arquitetura
+## 🚀 Funcionalidades e Arquitetura
 
-O sistema foi desenhado com foco em Experiência do Usuário (UX) e resiliência (Graceful Degradation):
+O sistema foi projetado com foco em **Experiência do Usuário (UX)** e **resiliência**, adotando estratégias de *graceful degradation* para garantir continuidade de uso mesmo em cenários adversos.
 
-* **Vitrine Dinâmica (`/` e `/explorar`):** Motor de busca que permite aos usuários procurarem serviços por categoria e localização.
-* **Checkout de Tempo (`/agendar/:id`):** Tela de agendamento 100% dinâmica. O calendário e os serviços se adaptam automaticamente baseados no ID do profissional acessado.
-* **Controle de Acesso (RBAC):** Funil de cadastro com separação de papéis (`CLIENTE` vs `PROFISSIONAL`). O roteamento (Split-Routing) direciona administradores para o `/dashboard` e clientes para a vitrine.
-* **Rede de Segurança (Fallback UI):** Os `Services` do Angular possuem interceptadores de erro (`catchError`). Caso a API Node.js esteja offline ou a rota ainda não exista, o Front-end injeta dados simulados para não quebrar a navegação visual do usuário.
+### 🔎 Vitrine Dinâmica (`/` e `/explorar`)
+Motor de busca que permite aos usuários encontrar serviços com base em **categoria** e **localização**, proporcionando uma navegação rápida e intuitiva.
+
+### 📅 Agendamento Inteligente (`/agendar/:id`)
+Tela de agendamento totalmente dinâmica, onde:
+- O calendário é gerado automaticamente
+- Os serviços são carregados conforme o profissional selecionado
+- A experiência se adapta ao contexto do usuário
+
+### 🔐 Controle de Acesso (RBAC)
+Sistema de autorização baseado em papéis:
+- `CLIENTE`
+- `PROFISSIONAL`
+
+O roteamento é segmentado (*split routing*), direcionando:
+- Profissionais → `/dashboard`
+- Clientes → fluxo de exploração e agendamento
+
+### 🛡️ Fallback UI (Resiliência)
+A aplicação implementa interceptadores de erro (`catchError`) nos serviços Angular.  
+Caso a API esteja indisponível ou uma rota ainda não exista:
+- Dados simulados (*mock data*) são injetados automaticamente
+- A navegação e a experiência visual permanecem funcionais
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Framework:** [Angular](https://angular.io/) (Standalone Components)
-* **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
-* **Linguagem:** TypeScript / HTML5
-* **Ícones e Fontes:** Material Symbols Outlined & Google Fonts (Inter)
+- **Framework:** [Angular](https://angular.io/) (Standalone Components)
+- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
+- **Linguagem:** TypeScript / HTML5
+- **UI/UX:** Material Symbols Outlined & Google Fonts (Inter)
 
 ---
 
 ## ⚙️ Pré-requisitos
 
-Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
-* [Node.js](https://nodejs.org/) (Versão 18.x ou superior)
-* [Angular CLI](https://angular.io/cli) (`npm install -g @angular/cli`)
+Antes de iniciar, certifique-se de possuir:
+
+- [Node.js](https://nodejs.org/) (versão 18 ou superior)
+- [Angular CLI](https://angular.io/cli)  
+  ```bash
+  npm install -g @angular/cli
+````
 
 ---
 
-## 📦 Como Instalar e Rodar o Projeto
+## 📦 Instalação e Execução
 
-**1. Clone o repositório**
+### 1. Clone o repositório
+
 ```bash
 git clone <URL_DO_SEU_REPOSITORIO>
 cd booka-frontend
 ```
 
-**2. Instale as dependências**
+### 2. Instale as dependências
+
 ```bash
 npm install
 ```
 
-**3. Execute o servidor de desenvolvimento**
+### 3. Inicie o servidor de desenvolvimento
+
 ```bash
 ng serve
 ```
 
-**4. Acesse no navegador**
-Abra `http://localhost:4200` para ver a aplicação rodando.
+### 4. Acesse a aplicação
+
+Abra no navegador:
+👉 [http://localhost:4200](http://localhost:4200)
 
 ---
 
-## 🗺️ Mapa de Navegação (Como testar)
+## 🗺️ Fluxo de Navegação (Teste sem Backend)
 
-Se você for testar a aplicação sem o Back-end estar rodando, siga este fluxo para ver a "Mágica do Fallback" em ação:
+Caso o backend não esteja disponível, você ainda pode explorar a aplicação utilizando o mecanismo de fallback:
 
-1.  **Acesse a Home (`/`):** Digite um serviço na barra de pesquisa e clique em Buscar.
-2.  **Catálogo (`/explorar`):** O sistema capturará os parâmetros da URL. Clique em "Ver Perfil e Agendar" em qualquer card.
-3.  **Agendamento (`/agendar/:id`):** Observe o Angular montar o calendário e a lista de serviços dinamicamente. Escolha um serviço, uma data e um horário, e clique em "Confirmar".
-4.  **Login/Cadastro (`/login` ou `/cadastro`):** Teste os *Radio Buttons* de perfil no cadastro para ver como o sistema entende a intenção do usuário (Contratar vs Oferecer).
+1. **Home (`/`)**
+   Insira um serviço na barra de busca e clique em **Buscar**
+
+2. **Explorar (`/explorar`)**
+   Selecione um profissional e clique em **Ver perfil e agendar**
+
+3. **Agendamento (`/agendar/:id`)**
+
+   * Escolha um serviço
+   * Selecione data e horário
+   * Confirme o agendamento
+
+4. **Autenticação (`/login` / `/cadastro`)**
+   Teste a seleção de perfil:
+
+   * Contratar serviços (Cliente)
+   * Oferecer serviços (Profissional)
 
 ---
 
-## 🔗 Integração com API (Backend)
-O Front-end está configurado para consumir uma API RESTful. As URLs de conexão podem ser alteradas no arquivo:
-`src/environments/environment.development.ts` (Padrão atual: `http://localhost:3000/api/`)
+## 🔗 Integração com Backend
+
+O frontend está preparado para consumir uma API RESTful.
+
+A configuração da URL base pode ser ajustada em:
+
+```
+src/environments/environment.development.ts
+```
+
+**Endpoint padrão:**
+
+```
+http://localhost:3000/api/
+```
 
 ---
+
+## 📌 Observações
+
+* O projeto segue boas práticas de componentização com Angular Standalone
+* Estrutura preparada para escalabilidade em ambiente multi-tenant
+* Experiência consistente mesmo em cenários de falha da API
+
+---
+
+```
 
