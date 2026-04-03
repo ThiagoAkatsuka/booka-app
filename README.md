@@ -1,142 +1,64 @@
-Aqui está uma versão revisada e mais profissional do seu README, com melhorias de clareza, padronização e tom técnico:
+# Booka — Marketplace de Agendamento de Serviços
 
-````markdown
-# 📅 Booka — Marketplace de Agendamento de Serviços
+Este repositório contém o front-end web do Booka, uma plataforma no modelo marketplace (multi-tenant) desenvolvida para conectar profissionais independentes a clientes que desejam agendar serviços de forma simples, segura e eficiente.
 
-Bem-vindo ao repositório do **Front-end Web do Booka**, uma plataforma no modelo **Marketplace (multi-tenant)** projetada para conectar profissionais independentes a clientes que desejam agendar serviços de forma prática, segura e eficiente.
-
-A aplicação é desenvolvida em **Angular** e utiliza **Tailwind CSS** para oferecer uma interface moderna, responsiva e orientada à conversão.
+A aplicação foi construída com Angular e utiliza Tailwind CSS para oferecer uma interface moderna, responsiva e orientada à usabilidade.
 
 ---
 
-## 🚀 Funcionalidades e Arquitetura
+## Visão Geral
 
-O sistema foi projetado com foco em **Experiência do Usuário (UX)** e **resiliência**, adotando estratégias de *graceful degradation* para garantir continuidade de uso mesmo em cenários adversos.
+O sistema foi projetado com foco em experiência do usuário (UX) e resiliência, garantindo funcionamento consistente mesmo em cenários onde a API não está disponível.
 
-### 🔎 Vitrine Dinâmica (`/` e `/explorar`)
-Motor de busca que permite aos usuários encontrar serviços com base em **categoria** e **localização**, proporcionando uma navegação rápida e intuitiva.
+A aplicação permite que usuários encontrem serviços, visualizem perfis de profissionais e realizem agendamentos de forma dinâmica, enquanto profissionais podem gerenciar sua presença na plataforma.
 
-### 📅 Agendamento Inteligente (`/agendar/:id`)
-Tela de agendamento totalmente dinâmica, onde:
+---
+
+## Funcionalidades
+
+### Vitrine dinâmica
+As rotas principais (`/` e `/explorar`) funcionam como um mecanismo de busca que permite aos usuários localizar serviços com base em categoria e localização.
+
+### Agendamento dinâmico
+A rota `/agendar/:id` apresenta uma interface de agendamento totalmente dinâmica, onde:
+- Os dados são carregados com base no profissional selecionado
 - O calendário é gerado automaticamente
-- Os serviços são carregados conforme o profissional selecionado
-- A experiência se adapta ao contexto do usuário
+- Os serviços disponíveis são exibidos conforme o contexto
 
-### 🔐 Controle de Acesso (RBAC)
-Sistema de autorização baseado em papéis:
-- `CLIENTE`
-- `PROFISSIONAL`
+### Controle de acesso (RBAC)
+O sistema possui controle de acesso baseado em papéis:
+- CLIENTE
+- PROFISSIONAL
 
-O roteamento é segmentado (*split routing*), direcionando:
-- Profissionais → `/dashboard`
-- Clientes → fluxo de exploração e agendamento
+O roteamento direciona usuários conforme seu perfil:
+- Clientes acessam o fluxo de busca e agendamento
+- Profissionais são direcionados para o dashboard
 
-### 🛡️ Fallback UI (Resiliência)
-A aplicação implementa interceptadores de erro (`catchError`) nos serviços Angular.  
-Caso a API esteja indisponível ou uma rota ainda não exista:
-- Dados simulados (*mock data*) são injetados automaticamente
-- A navegação e a experiência visual permanecem funcionais
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Framework:** [Angular](https://angular.io/) (Standalone Components)
-- **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
-- **Linguagem:** TypeScript / HTML5
-- **UI/UX:** Material Symbols Outlined & Google Fonts (Inter)
+### Resiliência (Fallback UI)
+A aplicação utiliza interceptadores de erro (`catchError`) nos serviços Angular.  
+Caso a API esteja indisponível:
+- Dados simulados são utilizados automaticamente
+- A navegação continua funcional
+- A interface não é comprometida
 
 ---
 
-## ⚙️ Pré-requisitos
+## Tecnologias
 
-Antes de iniciar, certifique-se de possuir:
-
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- [Angular CLI](https://angular.io/cli)  
-  ```bash
-  npm install -g @angular/cli
-````
+- Angular (Standalone Components)
+- Tailwind CSS
+- TypeScript
+- HTML5
+- Material Symbols Outlined
+- Google Fonts (Inter)
 
 ---
 
-## 📦 Instalação e Execução
+## Pré-requisitos
 
-### 1. Clone o repositório
+- Node.js (versão 18 ou superior)
+- Angular CLI
 
+Instalação do Angular CLI:
 ```bash
-git clone <URL_DO_SEU_REPOSITORIO>
-cd booka-frontend
-```
-
-### 2. Instale as dependências
-
-```bash
-npm install
-```
-
-### 3. Inicie o servidor de desenvolvimento
-
-```bash
-ng serve
-```
-
-### 4. Acesse a aplicação
-
-Abra no navegador:
-👉 [http://localhost:4200](http://localhost:4200)
-
----
-
-## 🗺️ Fluxo de Navegação (Teste sem Backend)
-
-Caso o backend não esteja disponível, você ainda pode explorar a aplicação utilizando o mecanismo de fallback:
-
-1. **Home (`/`)**
-   Insira um serviço na barra de busca e clique em **Buscar**
-
-2. **Explorar (`/explorar`)**
-   Selecione um profissional e clique em **Ver perfil e agendar**
-
-3. **Agendamento (`/agendar/:id`)**
-
-   * Escolha um serviço
-   * Selecione data e horário
-   * Confirme o agendamento
-
-4. **Autenticação (`/login` / `/cadastro`)**
-   Teste a seleção de perfil:
-
-   * Contratar serviços (Cliente)
-   * Oferecer serviços (Profissional)
-
----
-
-## 🔗 Integração com Backend
-
-O frontend está preparado para consumir uma API RESTful.
-
-A configuração da URL base pode ser ajustada em:
-
-```
-src/environments/environment.development.ts
-```
-
-**Endpoint padrão:**
-
-```
-http://localhost:3000/api/
-```
-
----
-
-## 📌 Observações
-
-* O projeto segue boas práticas de componentização com Angular Standalone
-* Estrutura preparada para escalabilidade em ambiente multi-tenant
-* Experiência consistente mesmo em cenários de falha da API
-
----
-
-```
-
+npm install -g @angular/cli
