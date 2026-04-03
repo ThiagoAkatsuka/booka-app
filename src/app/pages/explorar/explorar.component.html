@@ -1,308 +1,226 @@
-<div class="bg-surface text-on-surface antialiased min-h-screen flex flex-col">
-<!-- Navbar Compacta -->
-<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-outline-variant/20">
-<div class="flex items-center justify-between px-6 h-16 max-w-screen-2xl mx-auto">
-<!-- Logo -->
-<div class="flex items-center gap-2 shrink-0 cursor-pointer" routerLink="/">
-    <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <rect fill="#004ac6" height="64" rx="18" width="64"></rect>
-        <g transform="translate(8, 8)">
-            <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </g>
-    </svg>
-<span class="text-2xl font-black tracking-tighter text-primary">Booka</span>
-</div>
-<!-- Central Search Bar -->
-<div class="hidden md:flex items-center bg-surface-container-lowest rounded-full px-4 py-1.5 border border-outline-variant/30 grow max-w-2xl mx-8 shadow-sm">
-<div class="flex items-center gap-2 border-r border-outline-variant/30 pr-4 grow">
-<span class="material-symbols-outlined text-primary text-xl">search</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-full placeholder:text-on-surface-variant/60 outline-none" placeholder="Qual serviço você procura?" type="text" [(ngModel)]="termoBusca"/>
-</div>
-<div class="flex items-center gap-2 pl-4 grow">
-<span class="material-symbols-outlined text-outline text-xl">location_on</span>
-<input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-full placeholder:text-on-surface-variant/60 outline-none" placeholder="Onde?" type="text" [(ngModel)]="cidadeBusca"/>
-</div>
-</div>
-<!-- Right Actions -->
-<div class="flex items-center gap-3">
-<button class="hidden lg:block text-sm font-bold text-on-surface px-4 py-2 hover:bg-surface-container transition-colors rounded-lg">Suporte</button>
-<button routerLink="/login" class="text-sm font-bold text-primary px-4 py-2 hover:bg-primary-fixed transition-colors rounded-lg">Entrar</button>
-<button routerLink="/cadastro" class="bg-primary text-white px-5 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">Cadastrar-se</button>
-</div>
-</div>
-</nav>
-<main class="pt-16 grow">
-<div class="max-w-screen-2xl mx-auto grid lg:grid-cols-[280px,1fr] divide-x divide-outline-variant/20">
-<!-- Sidebar (Esquerda) -->
-<aside class="hidden lg:block p-8 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto hide-scrollbar">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-lg font-bold text-on-surface">Filtros</h2>
-<button class="text-xs font-semibold text-primary hover:underline">Limpar</button>
-</div>
-<div class="space-y-8">
-<!-- Categorias -->
-<div>
-<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant mb-4">Categorias</h3>
-<div class="space-y-3">
-<label class="flex items-center gap-3 cursor-pointer">
-<input checked="" class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-<span class="text-sm font-medium text-on-surface">Consultoria</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer">
-<input class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-<span class="text-sm font-medium text-on-surface">Aulas</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer">
-<input class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-<span class="text-sm font-medium text-on-surface">Design &amp; Criatividade</span>
-</label>
-<label class="flex items-center gap-3 cursor-pointer">
-<input class="rounded-sm border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
-<span class="text-sm font-medium text-on-surface">Saúde &amp; Bem-estar</span>
-</label>
-</div>
-</div>
-<!-- Faixa de Preço -->
-<div>
-<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant mb-4">Faixa de Preço</h3>
-<input class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" max="500" min="0" type="range" value="250"/>
-<div class="flex justify-between mt-3">
-<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-3 py-1 text-xs font-bold">R$ 0</div>
-<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-3 py-1 text-xs font-bold">R$ 500+</div>
-</div>
-</div>
-<!-- Avaliação -->
-<div>
-<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant mb-4">Avaliação</h3>
-<div class="space-y-2">
-<button class="flex items-center justify-between w-full p-3 rounded-lg bg-primary-fixed/30 border border-primary/10">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-sm font-bold">4.5+ Estrelas</span>
-</div>
-</button>
-<button class="flex items-center justify-between w-full p-3 rounded-lg hover:bg-surface-container transition-colors">
-<div class="flex items-center gap-1 text-on-surface">
-<span class="material-symbols-outlined text-sm">star</span>
-<span class="text-sm font-medium">4.0+ Estrelas</span>
-</div>
-</button>
-</div>
-</div>
-<!-- Tipo de Profissional -->
-<div>
-<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant mb-4">Tipo de Profissional</h3>
-<div class="grid grid-cols-2 gap-2">
-<button class="flex flex-col items-center justify-center p-3 rounded-xl border border-outline-variant/30 hover:bg-surface-container transition-colors gap-1">
-<span class="material-symbols-outlined text-on-surface-variant">business</span>
-<span class="text-[10px] font-bold uppercase">Empresa</span>
-</button>
-<button class="flex flex-col items-center justify-center p-3 rounded-xl bg-primary text-white shadow-md gap-1">
-<span class="material-symbols-outlined">person</span>
-<span class="text-[10px] font-bold uppercase">Autônomo</span>
-</button>
-</div>
-</div>
-</div>
-</aside>
-<!-- Área de Conteúdo (Direita) -->
-<section class="p-8 lg:p-10 bg-white">
-<div class="mb-10">
-<nav class="flex text-xs font-semibold text-on-surface-variant gap-2 mb-4">
-<a class="hover:text-primary" routerLink="/">Início</a>
-<span>/</span>
-<a class="hover:text-primary" routerLink="/explorar">Explorar</a>
-</nav>
-<h1 class="text-4xl font-black tracking-tight text-on-surface mb-2">
-                        Resultados para <span class="text-primary">"{{ termoBusca || 'Todos os Serviços' }}"</span> em <span class="text-primary">"{{ cidadeBusca || 'Qualquer Lugar' }}"</span>
-</h1>
-<p class="text-on-surface-variant font-medium text-lg">Descobrimos dezenas de especialistas prontos para ajudar o seu negócio.</p>
-</div>
-<!-- Grid de Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-<!-- Card Service 1 -->
-<div class="group bg-surface-container-lowest border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col">
-<div class="relative h-60 overflow-hidden shrink-0">
-<img alt="Consultoria de Estratégia Digital" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcrE1aHn3Jq90K4szSfWg0hNeRTj0xhQGS9caBFxhfjTwaWm1RX6-xJzNYC6EFGd5fUbmObJW3f52DUQX2KJ6v23lI-mKILyS2dQ9_D0HnZ89EQhzXF5a4tuddnSV75BeZr7VwiiWt6Sbjo9sZkAUlYtQo-TmTv8Ovj91yqFQOivNePrrm5pi6O5LQkL-n1ejG1AL4R1ZQIj2ytIyG1_Jw8Byq5bWG7uz4Jf68Q-OeQZZmh1-bbuPJ9b3ft5SzboidAhnM2MIt-CI"/>
-<div class="absolute top-4 left-4 flex flex-col gap-2">
-<span class="bg-tertiary text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFICADO
-                                </span>
-</div>
-</div>
-<div class="p-6 flex flex-col grow">
-<h3 class="text-xl font-bold text-on-surface mb-1 line-clamp-1">Estratégia de Redes Sociais</h3>
-<div class="flex items-center gap-2 mb-4">
-<p class="text-sm font-medium text-on-surface-variant">por Mariana Silva</p>
-<div class="flex items-center gap-0.5 text-amber-500">
-<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs font-bold">4.9</span>
-</div>
-</div>
-<div class="flex items-center gap-3 text-on-surface-variant mb-6">
-<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="text-xs font-bold">60 min</span>
-</div>
-<div class="text-xs font-bold">|</div>
-<div class="text-primary font-bold">R$ 120,00</div>
-</div>
-<div class="pt-4 mt-auto border-t border-outline-variant/10">
-<button routerLink="/agendar/1" class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                    Ver Perfil e Agendar
-                                </button>
-</div>
-</div>
-</div>
-<!-- Card Service 2 -->
-<div class="group bg-surface-container-lowest border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col">
-<div class="relative h-60 overflow-hidden shrink-0">
-<img alt="Gestão de Tráfego Pago" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOot-Sl1EBR6Z6RcHfSpa1Mef-Cg6O2TTRxpAdh2VIqMQwCg-4RwRcaxWlRXa0WaLaJrAgDBSoxyGu4FDZbOnDt9yadNKeMb1nZLueuxO-0jEgxhSLw5UJUafacoxdiGot6V5XxksffW7moQLzJpjYiCopSmkPhmLcsw3jnlkJvgRi_SyHfk69Se9XGRktWQqd9XUCu6OzmD_ht_C2XEeiRAJnJIUyzAvTiSsA60yojfAPXiFI-J06FtI8bPXr9AH5XkSU5cgaC-s"/>
-<div class="absolute top-4 left-4">
-<span class="bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[12px]">new_releases</span> NOVO SERVIÇO
-                                </span>
-</div>
-</div>
-<div class="p-6 flex flex-col grow">
-<h3 class="text-xl font-bold text-on-surface mb-1 line-clamp-1">Setup de Campanhas Ads</h3>
-<div class="flex items-center gap-2 mb-4">
-<p class="text-sm font-medium text-on-surface-variant">por Ricardo Gomes</p>
-<div class="flex items-center gap-0.5 text-amber-500">
-<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs font-bold">4.8</span>
-</div>
-</div>
-<div class="flex items-center gap-3 text-on-surface-variant mb-6">
-<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="text-xs font-bold">90 min</span>
-</div>
-<div class="text-xs font-bold">|</div>
-<div class="text-primary font-bold">R$ 250,00</div>
-</div>
-<div class="pt-4 mt-auto border-t border-outline-variant/10">
-<button routerLink="/agendar/1" class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                    Ver Perfil e Agendar
-                                </button>
-</div>
-</div>
-</div>
-<!-- Card Service 3 -->
-<div class="group bg-surface-container-lowest border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col">
-<div class="relative h-60 overflow-hidden shrink-0">
-<img alt="Workshop de Marketing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWK40KWbl8HsR7hU3e07D0fJ0jiZAsCBYXpGKE8XD0NdKXI2mxEiUPIUQqibuB2ivJYzJ0OXAl7ydKolFA9eqt0g54E5iXQDmZZvWDINDi1HpZhNgatQGKFfW_rB4KvZvmGnjekYw_eQRMfQtY4PcCYmJ_qHYtRU0cJ_1rHd9jAgo3HoE2JnlyxfS8mzGGTchF2rZIjQtY-35NoBqRKBSDdBY5W_RUnNRfSLMLKS8nTlIw67ptSFhIve8fduZztSL4JYXXcZoG6Fw"/>
-<div class="absolute top-4 left-4">
-<span class="bg-tertiary text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified</span> VERIFICADO
-                                </span>
-</div>
-</div>
-<div class="p-6 flex flex-col grow">
-<h3 class="text-xl font-bold text-on-surface mb-1 line-clamp-1">Mentoria em Social Media</h3>
-<div class="flex items-center gap-2 mb-4">
-<p class="text-sm font-medium text-on-surface-variant">por Ana Paula Porto</p>
-<div class="flex items-center gap-0.5 text-amber-500">
-<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs font-bold">5.0</span>
-</div>
-</div>
-<div class="flex items-center gap-3 text-on-surface-variant mb-6">
-<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="text-xs font-bold">45 min</span>
-</div>
-<div class="text-xs font-bold">|</div>
-<div class="text-primary font-bold">R$ 150,00</div>
-</div>
-<div class="pt-4 mt-auto border-t border-outline-variant/10">
-<button routerLink="/agendar/1" class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                    Ver Perfil e Agendar
-                                </button>
-</div>
-</div>
-</div>
-<!-- Card Service 4 -->
-<div class="group bg-surface-container-lowest border border-outline-variant/20 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 flex flex-col">
-<div class="relative h-60 overflow-hidden shrink-0">
-<img alt="Arquitetura Cloud" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3niVvrRUzS6fmJlriJcfP4XIR353UOGCZ6cBgAbhPXDkyJ6P_QJYs5EJcGUTQ-YN0aClDn2Q9ZDlNaURpOvA5eOfJfHWPW7aU9Uzmih_j1d0SQ3GmLP0qmIpZ_IZdcfTf08877bJkZCSTxWKFF-QaWOffOq5hRUdvj85KZdjCxF_mk0pdLEh5MEzUcisyij4HYFkXDc6FFr0v_sBHjYkJY3csMvWGY6gREZm62P0cqtibGT8YMg-qXKM3cuesWI5jOf7y0UV4nF8"/>
-</div>
-<div class="p-6 flex flex-col grow">
-<h3 class="text-xl font-bold text-on-surface mb-1 line-clamp-1">Migração para Nuvem (AWS/Azure)</h3>
-<div class="flex items-center gap-2 mb-4">
-<p class="text-sm font-medium text-on-surface-variant">por Beatriz Helena</p>
-<div class="flex items-center gap-0.5 text-amber-500">
-<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="text-xs font-bold">4.7</span>
-</div>
-</div>
-<div class="flex items-center gap-3 text-on-surface-variant mb-6">
-<div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="text-xs font-bold">120 min</span>
-</div>
-<div class="text-xs font-bold">|</div>
-<div class="text-primary font-bold">R$ 450,00</div>
-</div>
-<div class="pt-4 mt-auto border-t border-outline-variant/10">
-<button routerLink="/agendar/1" class="w-full bg-primary text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                    Ver Perfil e Agendar
-                                </button>
-</div>
-</div>
-</div>
-</div>
-<!-- Pagination -->
-<div class="mt-20 flex items-center justify-center gap-2">
-<button class="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined">chevron_left</span>
-</button>
-<button class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary text-white font-bold shadow-lg shadow-primary/20">1</button>
-<button class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container font-bold transition-colors">2</button>
-<button class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container font-bold transition-colors">3</button>
-<button class="w-12 h-12 flex items-center justify-center rounded-xl border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors">
-<span class="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
-</section>
-</div>
-</main>
-<!-- Footer -->
-<footer class="bg-[#f2f4f6] dark:bg-slate-800 w-full py-12 px-8 font-['Inter'] leading-relaxed mt-auto border-t border-slate-200">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-        <div class="space-y-4">
-            <div class="flex items-center gap-2">
+<div class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col font-['Inter']">
+    <!-- Navbar Compacta -->
+    <nav class="fixed top-0 w-full z-10 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200/60">
+        <div class="flex items-center justify-between px-6 h-16 max-w-screen-2xl mx-auto">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 shrink-0 cursor-pointer" routerLink="/">
                 <svg class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                    <rect fill="#2563EB" height="64" rx="18" width="64"></rect>
+                    <rect fill="#004ac6" height="64" rx="18" width="64"></rect>
                     <g transform="translate(8, 8)">
-                        <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
-                            fill="#FFFFFF" fill-rule="evenodd"></path>
+                        <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="#FFFFFF" fill-rule="evenodd"></path>
                     </g>
                 </svg>
-                <span class="font-bold text-slate-900 dark:text-white text-xl">Booka</span>
+                <span class="text-2xl font-black tracking-tighter text-[#004ac6]">Booka</span>
             </div>
-            <p class="text-slate-500 dark:text-slate-400 max-w-xs">Sua plataforma definitiva para encontrar e
-                contratar serviços profissionais com segurança.</p>
-            <p class="text-sm text-slate-500 dark:text-slate-400">© 2024 Booka. Todos os direitos reservados.</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="flex flex-col gap-3">
-                <h4 class="font-bold text-slate-900 dark:text-white mb-2">Marketplace</h4>
-                <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
-                    href="#">Sobre Nós</a>
-                <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
-                    href="#">Como Funciona</a>
-                <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
-                    href="#">Suporte</a>
+            <!-- Central Search Bar (Apenas Web) -->
+            <div class="hidden md:flex items-center bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 grow max-w-xl mx-8 focus-within:border-[#004ac6] focus-within:ring-1 focus-within:ring-[#004ac6] transition-all">
+                <div class="flex items-center gap-2 border-r border-slate-200 pr-3 grow">
+                    <span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-full placeholder:text-slate-400 outline-none" placeholder="O que busca?" type="text" [(ngModel)]="termoBusca"/>
+                </div>
+                <div class="flex items-center gap-2 pl-3 grow">
+                    <span class="material-symbols-outlined text-slate-400 text-lg">location_on</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-sm font-medium w-full placeholder:text-slate-400 outline-none" placeholder="Onde?" type="text" [(ngModel)]="cidadeBusca"/>
+                </div>
             </div>
-            <div class="flex flex-col gap-3">
-                <h4 class="font-bold text-slate-900 dark:text-white mb-2">Legal</h4>
-                <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
-                    href="#">Privacidade</a>
-                <a class="text-slate-500 dark:text-slate-400 hover:text-[#004ac6] dark:hover:text-[#2563eb] transition-colors opacity-80 hover:opacity-100"
-                    href="#">Termos de Uso</a>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+                <button routerLink="/login" class="text-sm font-bold text-[#004ac6] px-4 py-2 hover:bg-blue-50 transition-colors rounded-lg">Entrar</button>
+                <button routerLink="/cadastro" class="bg-[#004ac6] text-white px-5 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity">Cadastrar</button>
             </div>
         </div>
-    </div>
-</footer>
+    </nav>
+    
+    <main class="pt-16 flex-grow">
+        <div class="max-w-7xl mx-auto px-6 py-6 pb-20 grid lg:grid-cols-[260px_1fr] gap-8">
+            <!-- Sidebar (Esquerda) Super Completa -->
+            <aside class="hidden lg:block sticky top-20 h-[calc(100vh-100px)] overflow-y-auto hide-scrollbar self-start bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                    <h2 class="text-base font-black text-slate-900">Filtros</h2>
+                    <button class="text-xs font-bold text-[#004ac6] hover:underline">Limpar</button>
+                </div>
+                
+                <div class="space-y-6">
+                    <!-- Categorias -->
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Categorias</h3>
+                        <div class="grid grid-cols-1 gap-2">
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="categorias['Consultoria'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="categorias['Consultoria']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Consultoria</span>
+                            </label>
+                            
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="categorias['Educação'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="categorias['Educação']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Educação e Aulas</span>
+                            </label>
+
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="categorias['Bem-Estar e Saúde'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="categorias['Bem-Estar e Saúde']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Bem-Estar e Saúde</span>
+                            </label>
+
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="categorias['Casa'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="categorias['Casa']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Casa e Reparos</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preço Slider -->
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Preço Máximo</h3>
+                        <div class="w-full">
+                            <input [(ngModel)]="precomax" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#004ac6]" max="500" min="0" type="range"/>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <span class="text-xs font-bold text-slate-400">R$ 0</span>
+                            <span class="text-xs font-black text-[#004ac6]">R$ {{ precomax }}{{ precomax >= 500 ? '+' : '' }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Avaliação -->
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Avaliação Mínima</h3>
+                        <div class="space-y-1.5">
+                            <button (click)="setAvaliacao(4.5)" 
+                                    [ngClass]="avaliacaoMinima === 4.5 ? 'bg-blue-50 border-blue-200' : 'bg-white border-slate-200 hover:bg-slate-50'"
+                                    class="flex items-center justify-between w-full p-2.5 rounded-xl border transition-colors">
+                                <div class="flex items-center gap-1.5" [ngClass]="avaliacaoMinima === 4.5 ? 'text-[#004ac6]' : 'text-slate-600'">
+                                    <span class="material-symbols-outlined text-[16px]" [ngStyle]="{'font-variation-settings': avaliacaoMinima === 4.5 ? '\'FILL\' 1' : '\'FILL\' 0'}">star</span>
+                                    <span class="text-sm font-bold">4.5+ Estrelas</span>
+                                </div>
+                            </button>
+                            <button (click)="setAvaliacao(4.0)" 
+                                    [ngClass]="avaliacaoMinima === 4.0 ? 'bg-blue-50 border-blue-200' : 'bg-white border-slate-200 hover:bg-slate-50'"
+                                    class="flex items-center justify-between w-full p-2.5 rounded-xl border transition-colors">
+                                <div class="flex items-center gap-1.5" [ngClass]="avaliacaoMinima === 4.0 ? 'text-[#004ac6]' : 'text-slate-600'">
+                                    <span class="material-symbols-outlined text-[16px]" [ngStyle]="{'font-variation-settings': avaliacaoMinima === 4.0 ? '\'FILL\' 1' : '\'FILL\' 0'}">star</span>
+                                    <span class="text-sm font-bold">4.0+ Estrelas</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Serviço -->
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Modalidade</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button (click)="setModalidade('Online')"
+                                    [ngClass]="modalidade === 'Online' ? 'bg-[#004ac6] text-white border-transparent shadow-[0_4px_12px_rgba(0,74,198,0.2)]' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'"
+                                    class="flex flex-col items-center justify-center py-3 rounded-xl border font-bold gap-1 transition-all">
+                                <span class="material-symbols-outlined text-[20px]">wifi</span>
+                                <span class="text-xs uppercase tracking-tight">Online</span>
+                            </button>
+                            <button (click)="setModalidade('Presencial')"
+                                    [ngClass]="modalidade === 'Presencial' ? 'bg-[#004ac6] text-white border-transparent shadow-[0_4px_12px_rgba(0,74,198,0.2)]' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'"
+                                    class="flex flex-col items-center justify-center py-3 rounded-xl border font-bold gap-1 transition-all">
+                                <span class="material-symbols-outlined text-[20px]">directions_walk</span>
+                                <span class="text-xs uppercase tracking-tight">Presencial</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Vendedor -->
+                    <div>
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Vendedor</h3>
+                        <div class="grid grid-cols-1 gap-2">
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="tiposVendedor['Autônomo'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="tiposVendedor['Autônomo']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Freelancers (Autônomos)</span>
+                            </label>
+                            
+                            <label class="relative flex cursor-pointer rounded-xl border p-3 shadow-sm hover:bg-slate-50 focus:outline-none transition-all"
+                                   [ngClass]="tiposVendedor['Empresa'] ? 'border-[#004ac6] ring-1 ring-[#004ac6] bg-blue-50/20' : 'border-slate-200'">
+                                <input type="checkbox" [(ngModel)]="tiposVendedor['Empresa']" class="sr-only"/>
+                                <span class="text-sm font-bold text-slate-900">Agências (Empresas)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Área de Conteúdo (Direita) Compacta -->
+            <section class="flex-1">
+                <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-2xl font-black tracking-tight text-slate-900 mb-1">
+                            Resultados para <span class="text-[#004ac6]">"{{ termoBusca || 'Todos os Serviços' }}"</span>
+                        </h1>
+                        <p class="text-slate-500 font-medium text-sm">Listando os melhores profissionais baseados no seu filtro</p>
+                    </div>
+                    
+                    <button class="lg:hidden flex items-center gap-2 bg-white px-3 py-2 border border-slate-200 rounded-lg text-sm font-bold shadow-sm">
+                        <span class="material-symbols-outlined text-[16px]">tune</span> Filtrar
+                    </button>
+                </div>
+                
+                <!-- Grid de Cards Dynamic Loop -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    
+                    @if (profissionaisFiltrados.length === 0) {
+                        <div class="col-span-1 md:col-span-2 xl:col-span-3 text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
+                            <span class="material-symbols-outlined text-4xl text-slate-300 mb-2">search_off</span>
+                            <h3 class="text-lg font-bold text-slate-700">Nenhum profissional encontrado</h3>
+                            <p class="text-sm text-slate-500">Tente ajustar seus filtros na barra lateral para ver mais resultados.</p>
+                        </div>
+                    }
+
+                    @for (prof of profissionaisFiltrados; track prof.id) {
+                    <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer" [routerLink]="['/agendar', prof.id]">
+                        <div class="relative h-40 overflow-hidden">
+                            <img [alt]="prof.nome" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" [src]="prof.img"/>
+                            <div class="absolute top-3 left-3">
+                                <span *ngIf="prof.id === 1" class="bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 shadow">
+                                    <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified</span> Em Alta
+                                </span>
+                                <span *ngIf="prof.id > 1" class="bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow flex items-center gap-1">NOVATO</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col grow">
+                            <h3 class="text-base font-bold text-slate-900 mb-1 line-clamp-1 group-hover:text-[#004ac6] transition-colors">{{ prof.profissao }}</h3>
+                            <div class="flex items-center justify-between mb-4">
+                                <p class="text-xs font-medium text-slate-500">{{ prof.nome }}</p>
+                                <div class="flex items-center gap-0.5 text-amber-500">
+                                    <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="text-xs font-bold text-slate-800">{{ prof.rating }}</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-500 mb-4 text-xs font-bold">
+                                <div class="bg-slate-50 px-2 py-1.5 rounded border border-slate-100 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">schedule</span> 60 min
+                                </div>
+                            </div>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">A partir de</span>
+                                <span class="text-lg font-black text-slate-900">{{ prof.preco | currency:'BRL' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+                </div>
+
+                <!-- Paginação -->
+                <div class="mt-10 flex items-center justify-center gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 text-slate-400 hover:bg-slate-50 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                    </button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded bg-[#004ac6] text-white font-bold shadow hover:bg-blue-700 transition">1</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded bg-transparent text-slate-600 font-bold hover:bg-slate-50 transition border border-transparent hover:border-slate-200">2</button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Componentizado -->
+    <app-footer></app-footer>
 </div>

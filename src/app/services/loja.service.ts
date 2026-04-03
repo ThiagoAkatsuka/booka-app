@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Loja } from '../models';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,8 +21,9 @@ export class LojaService {
 
   buscarProfissionalPorId(id: string | number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/profissionais/${id}`).pipe(
+      timeout(300),
       catchError(error => {
-        console.warn('API de profissionais abstrata não está pronta. Usando fallback estático.');
+        console.warn('API de profissionais abstrata não está pronta ou offline. Usando fallback estático.');
         return of({
           id,
           nome: 'Profissional Dinâmico',
