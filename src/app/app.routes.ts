@@ -13,20 +13,22 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { RecuperarSenhaComponent } from './pages/recuperar-senha/recuperar-senha.component';
 import { OnboardingComponent } from './pages/onboarding/onboarding.component';
 import { NovaSenhaComponent } from './pages/nova-senha/nova-senha.component';
+import { authGuard } from './guards/auth.guard';
+
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'login', component: LoginComponent }, // Rota de Login
-  { path: 'servicos', component: ServicosComponent },
-  { path: 'agenda', component: AgendaComponent },
-  { path: 'bloqueios', component: BloqueiosComponent },
-  { path: 'configuracoes', component: ConfiguracoesComponent },
-  { path: 'dados-loja', component: DadosLojaComponent },
-  { path: 'clientes', component: ClientesComponent },
-  { path: 'recuperar-senha', component: RecuperarSenhaComponent }, // Rota Nova
-  { path: 'nova-senha', component: NovaSenhaComponent }, // Rota Nova
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'cadastro', component: CadastroComponent }, // Rota Nova!
-  { path: 'onboarding', component: OnboardingComponent }, // ROTA FINAL!
-  { path: 'notificacoes', component: NotificacoesComponent }
+  { path: '', component: DashboardComponent, canActivate: [authGuard] },
+  { path: 'login', component: LoginComponent }, // Rota de Login livre
+  { path: 'servicos', component: ServicosComponent, canActivate: [authGuard] },
+  { path: 'agenda', component: AgendaComponent, canActivate: [authGuard] },
+  { path: 'bloqueios', component: BloqueiosComponent, canActivate: [authGuard] },
+  { path: 'configuracoes', component: ConfiguracoesComponent, canActivate: [authGuard] },
+  { path: 'dados-loja', component: DadosLojaComponent, canActivate: [authGuard] },
+  { path: 'clientes', component: ClientesComponent, canActivate: [authGuard] },
+  { path: 'recuperar-senha', component: RecuperarSenhaComponent }, // Rota Nova livre
+  { path: 'nova-senha', component: NovaSenhaComponent }, // Rota Nova livre
+  { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
+  { path: 'cadastro', component: CadastroComponent }, // Rota Nova livre
+  { path: 'onboarding', component: OnboardingComponent, canActivate: [authGuard] }, // ROTA FINAL privada
+  { path: 'notificacoes', component: NotificacoesComponent, canActivate: [authGuard] }
 ];

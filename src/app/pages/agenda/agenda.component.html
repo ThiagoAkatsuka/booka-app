@@ -65,48 +65,31 @@
               <div class="flex-1 h-0.5 bg-red-500"></div>
             </div>
 
-            <div class="absolute inset-0 p-2 space-y-2">
+            <div class="absolute inset-0 p-2 space-y-2 relative">
               
-              <div class="absolute left-4 right-4 bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-3 shadow-sm z-10" style="top: 80px; height: 70px;">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="text-sm font-bold text-indigo-900 leading-tight">João - Corte de Cabelo</p>
-                    <p class="text-xs text-indigo-700 mt-0.5">Profissional: Rodrigo S.</p>
-                  </div>
-                  <span class="text-xs font-medium text-indigo-600">09:00 - 10:00</span>
-                </div>
+              @if (isLoading) {
+              <div class="text-center text-slate-500 mt-8 font-medium">
+                Carregando agenda...
               </div>
+              }
 
-              <div class="absolute left-4 right-4 bg-amber-50 border-l-4 border-amber-500 rounded-lg p-3 shadow-sm z-10" style="top: 280px; height: 60px;">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="text-sm font-bold text-amber-900 leading-tight">Ricardo - Barba Express</p>
-                    <p class="text-xs text-amber-700 mt-0.5">Profissional: Carlos M.</p>
-                  </div>
-                  <span class="text-xs font-medium text-amber-600">11:30 - 12:15</span>
-                </div>
+              @if (!isLoading && agendamentos.length === 0) {
+              <div class="text-center text-slate-500 mt-8 font-medium">
+                Nenhum agendamento para hoje.
               </div>
+              }
 
-              <div class="absolute left-4 right-4 bg-emerald-50 border-l-4 border-emerald-600 rounded-lg p-3 shadow-sm z-10" style="top: 480px; height: 120px;">
+              @for (agendamento of agendamentos; track agendamento.id) {
+              <div class="bg-indigo-50 border-l-4 border-indigo-600 rounded-lg p-3 shadow-sm z-10 mx-2">
                 <div class="flex justify-between items-start">
                   <div>
-                    <p class="text-sm font-bold text-emerald-900 leading-tight">Maria - Progressiva</p>
-                    <p class="text-xs text-emerald-700 mt-0.5">Profissional: Ana Laura</p>
-                    <p class="text-xs text-emerald-600/70 mt-2 bg-white/50 inline-block px-2 py-1 rounded">Serviço Premium</p>
+                    <p class="text-sm font-bold text-indigo-900 leading-tight">Agendamento #{{ agendamento.id }}</p>
+                    <p class="text-xs text-indigo-700 mt-0.5">Cliente ID: {{ agendamento.clienteId }} | Serviço ID: {{ agendamento.servicoId }}</p>
                   </div>
-                  <span class="text-xs font-medium text-emerald-600">14:00 - 15:30</span>
+                  <span class="text-xs font-medium text-indigo-600">{{ agendamento.dataHora | date:'shortTime' }}</span>
                 </div>
               </div>
-
-              <div class="absolute left-4 right-4 bg-slate-100 border-l-4 border-slate-400 rounded-lg p-3 shadow-sm z-10" style="top: 680px; height: 60px;">
-                <div class="flex justify-between items-start">
-                  <div>
-                    <p class="text-sm font-bold text-slate-800 leading-tight">Carlos - Manutenção</p>
-                    <p class="text-xs text-slate-600 mt-0.5">Profissional: Rodrigo S.</p>
-                  </div>
-                  <span class="text-xs font-medium text-slate-500">16:30 - 17:15</span>
-                </div>
-              </div>
+              }
 
             </div>
           </div>

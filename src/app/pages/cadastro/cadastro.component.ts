@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; 
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -11,12 +12,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cadastro.component.css'
 })
 export class CadastroComponent {
+  fullName = '';
+  email = '';
   password = '';
   confirmPassword = '';
   showPassword = false;
   
   // Nova variável para controlar o dropdown mágico
   showRequirements = false;
+
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -49,4 +55,25 @@ export class CadastroComponent {
   get passwordsMatch() {
     return this.password === this.confirmPassword && this.password.length > 0;
   }
-}
+
+  onSubmit() {
+    if (!this.fullName || !this.email || !this.password) {
+      alert('Preencha os campos obrigatórios!');
+      return;
+    }
+    if (!this.passwordsMatch || !this.hasMinLength) {
+      alert('Verifique os requisitos da senha!');
+      return;
+    }
+
+    this.authService.register(this.fullName, this.email, this.password).subscribe({
+      next: () => {
+        this.router.navigate(['/onboarding']);
+      },
+      error: (err) => {
+        alert('Erro ao realizar cadastro.');
+        console.error(err);
+      }
+    });
+  }
+}
