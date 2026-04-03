@@ -1,0 +1,77 @@
+<div class="agendar-container">
+  <header class="agendar-header">
+    <h1>Barbearia do João</h1>
+    <p>Agende seu horário com facilidade</p>
+  </header>
+
+  <main class="agendar-content">
+    @if (step === 1) {
+      <div class="step-card fade-in">
+        <h2>Selecione o Serviço</h2>
+        <div class="servicos-list">
+          <div class="servico-item" (click)="selecionarServico('Corte')">
+            <div class="servico-info">
+              <h3>Corte de Cabelo</h3>
+              <p>Corte tradicional na tesoura ou máquina.</p>
+            </div>
+            <div class="servico-preco">R$ 40,00</div>
+          </div>
+          <div class="servico-item" (click)="selecionarServico('Barba')">
+             <div class="servico-info">
+              <h3>Barba</h3>
+              <p>Modelagem e navalha com toalha quente.</p>
+            </div>
+            <div class="servico-preco">R$ 35,00</div>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (step === 2) {
+      <div class="step-card fade-in">
+        <button class="btn-voltar" (click)="step = 1">← Voltar</button>
+        <h2>Selecione o Horário</h2>
+        <p class="servico-escolhido">Serviço: <strong>{{ servicoSelecionado }}</strong></p>
+
+        <div class="dias-list">
+          <h3>Hoje, 15 de Abril</h3>
+          <div class="horarios-grid">
+             <button class="horario-pill" (click)="selecionarHorario('Hoje', '09:00')">09:00</button>
+             <button class="horario-pill" (click)="selecionarHorario('Hoje', '10:00')">10:00</button>
+             <button class="horario-pill" (click)="selecionarHorario('Hoje', '11:00')">11:00</button>
+             <button class="horario-pill" (click)="selecionarHorario('Hoje', '14:00')">14:00</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (step === 3) {
+      <div class="step-card fade-in">
+        <button class="btn-voltar" (click)="step = 2">← Voltar</button>
+        <h2>Seus Dados</h2>
+        <p class="servico-escolhido">Serviço: <strong>{{ servicoSelecionado }}</strong> às <strong>{{ horarioSelecionado }}</strong></p>
+
+        <form class="agendamento-form" (ngSubmit)="confirmarAgendamento()">
+          <div class="form-group">
+            <label for="nome">Seu Nome</label>
+            <input type="text" id="nome" name="nome" [(ngModel)]="clienteNome" required placeholder="Ex: João da Silva">
+          </div>
+          <div class="form-group">
+            <label for="whatsapp">Seu WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" [(ngModel)]="clienteWhatsapp" required placeholder="(00) 00000-0000">
+          </div>
+          <button type="submit" class="btn-confirmar" [disabled]="!clienteNome || !clienteWhatsapp">Confirmar Agendamento</button>
+        </form>
+      </div>
+    }
+
+    @if (step === 4) {
+      <div class="step-card success fade-in">
+        <div class="success-icon">✓</div>
+        <h2>Agendamento Confirmado!</h2>
+        <p>Olá <strong>{{ clienteNome }}</strong>, seu horário para <strong>{{ servicoSelecionado }}</strong> às <strong>{{ horarioSelecionado }}</strong> foi marcado com sucesso.</p>
+        <p>Enviamos uma mensagem no seu WhatsApp ({{ clienteWhatsapp }}).</p>
+      </div>
+    }
+  </main>
+</div>

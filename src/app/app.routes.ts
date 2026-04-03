@@ -11,6 +11,7 @@ import { NotificacoesComponent } from './pages/notificacoes/notificacoes.compone
 import { LoginComponent } from './pages/login/login.component'; // Import Novo
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { RecuperarSenhaComponent } from './pages/recuperar-senha/recuperar-senha.component';
+import { AgendarComponent } from './pages/agendar/agendar.component';
 import { OnboardingComponent } from './pages/onboarding/onboarding.component';
 import { NovaSenhaComponent } from './pages/nova-senha/nova-senha.component';
 import { authGuard } from './guards/auth.guard';
@@ -19,6 +20,7 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent }, // Rota de Login livre
+  { path: 'agendar/:idLoja', component: AgendarComponent }, // Rota pública
   { path: 'servicos', component: ServicosComponent, canActivate: [authGuard] },
   { path: 'agenda', component: AgendaComponent, canActivate: [authGuard] },
   { path: 'bloqueios', component: BloqueiosComponent, canActivate: [authGuard] },
