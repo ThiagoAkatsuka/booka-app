@@ -12,12 +12,12 @@
                 <span class="text-2xl font-black tracking-tighter text-[#004ac6]">Booka</span>
             </div>
             <div class="hidden md:flex items-center gap-8">
-                <a class="text-[#004ac6] font-bold border-b-2 border-[#004ac6] pb-1 hover:scale-105 transition-transform duration-200" href="#">Explorar</a>
-                <a class="text-slate-600 hover:text-[#004ac6] hover:scale-105 transition-transform duration-200" href="#">Seja um Profissional</a>
+                <a routerLink="/explorar" class="text-[#004ac6] font-bold border-b-2 border-[#004ac6] pb-1 hover:scale-105 transition-transform duration-200 cursor-pointer">Explorar</a>
+                <a routerLink="/cadastro" class="text-slate-600 hover:text-[#004ac6] hover:scale-105 transition-transform duration-200 cursor-pointer">Seja um Profissional</a>
             </div>
             <div class="flex items-center gap-4">
-                <button class="text-slate-600 font-medium px-4 py-2 hover:text-[#004ac6] transition-colors scale-95 transition-all w-none border-none bg-transparent">Entrar</button>
-                <button class="bg-[#004ac6] text-white font-bold px-6 py-2.5 rounded-full hover:scale-105 transition-all shadow-md">Cadastrar</button>
+                <button routerLink="/login" class="text-slate-600 font-medium px-4 py-2 hover:text-[#004ac6] transition-colors scale-95 transition-all w-none border-none bg-transparent cursor-pointer">Entrar</button>
+                <button routerLink="/cadastro" class="bg-[#004ac6] text-white font-bold px-6 py-2.5 rounded-full hover:scale-105 transition-all shadow-md cursor-pointer">Cadastrar</button>
             </div>
         </nav>
     </header>
@@ -75,7 +75,7 @@
                         <h2 class="text-3xl font-extrabold text-on-surface tracking-tight text-slate-800">Explore por
                             áreas de interesse</h2>
                     </div>
-                    <a class="text-[#004ac6] font-semibold flex items-center gap-1 hover:underline" href="#">Ver tudo
+                    <a routerLink="/explorar" class="text-[#004ac6] font-semibold flex items-center gap-1 hover:underline cursor-pointer">Ver tudo
                         <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-6">

@@ -1,40 +1,120 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ServicosComponent } from './pages/servicos/servicos.component';
-import { AgendaComponent } from './pages/agenda/agenda.component';
-import { BloqueiosComponent } from './pages/bloqueios/bloqueios.component';
-import { ConfiguracoesComponent } from './pages/configuracoes/configuracoes.component';
-import { DadosLojaComponent } from './pages/dados-loja/dados-loja.component';
-import { ClientesComponent } from './pages/clientes/clientes.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
-import { NotificacoesComponent } from './pages/notificacoes/notificacoes.component';
-import { LoginComponent } from './pages/login/login.component'; // Import Novo
-import { CadastroComponent } from './pages/cadastro/cadastro.component';
-import { RecuperarSenhaComponent } from './pages/recuperar-senha/recuperar-senha.component';
-import { AgendarComponent } from './pages/agendar/agendar.component';
-import { OnboardingComponent } from './pages/onboarding/onboarding.component';
-import { NovaSenhaComponent } from './pages/nova-senha/nova-senha.component';
-import { HomeMarketplaceComponent } from './pages/home-marketplace/home-marketplace.component';
-import { ExplorarComponent } from './pages/explorar/explorar.component';
+import { TabsLayoutComponent } from './components/tabs-layout/tabs-layout.component';
 import { authGuard } from './guards/auth.guard';
 
-
 export const routes: Routes = [
-  { path: '', component: HomeMarketplaceComponent }, // Rota Nova livre
-  { path: 'explorar', component: ExplorarComponent }, // Rota de Resultados Livre
-  { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
-  { path: 'login', component: LoginComponent }, // Rota de Login livre
-  { path: 'agendar/:idLoja', component: AgendarComponent }, // Rota pública
-  { path: 'servicos', component: ServicosComponent, canActivate: [authGuard] },
-  { path: 'agenda', component: AgendaComponent, canActivate: [authGuard] },
-  { path: 'bloqueios', component: BloqueiosComponent, canActivate: [authGuard] },
-  { path: 'configuracoes', component: ConfiguracoesComponent, canActivate: [authGuard] },
-  { path: 'dados-loja', component: DadosLojaComponent, canActivate: [authGuard] },
-  { path: 'clientes', component: ClientesComponent, canActivate: [authGuard] },
-  { path: 'recuperar-senha', component: RecuperarSenhaComponent }, // Rota Nova livre
-  { path: 'nova-senha', component: NovaSenhaComponent }, // Rota Nova livre
-  { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
-  { path: 'cadastro', component: CadastroComponent }, // Rota Nova livre
-  { path: 'onboarding', component: OnboardingComponent, canActivate: [authGuard] }, // ROTA FINAL privada
-  { path: 'notificacoes', component: NotificacoesComponent, canActivate: [authGuard] }
-];
+  // ─── Área Pública (sem tab bar) ───────────────────────────────────────────
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/home-marketplace/home-marketplace.component').then(m => m.HomeMarketplaceComponent)
+  },
+  {
+    path: 'explorar',
+    loadComponent: () =>
+      import('./pages/explorar/explorar.component').then(m => m.ExplorarComponent)
+  },
+  {
+    path: 'agendar/:idLoja',
+    loadComponent: () =>
+      import('./pages/agendar/agendar.component').then(m => m.AgendarComponent)
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: 'cadastro',
+    loadComponent: () =>
+      import('./pages/cadastro/cadastro.component').then(m => m.CadastroComponent)
+  },
+  {
+    path: 'recuperar-senha',
+    loadComponent: () =>
+      import('./pages/recuperar-senha/recuperar-senha.component').then(m => m.RecuperarSenhaComponent)
+  },
+  {
+    path: 'nova-senha',
+    loadComponent: () =>
+      import('./pages/nova-senha/nova-senha.component').then(m => m.NovaSenhaComponent)
+  },
+  {
+    path: 'onboarding',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/onboarding/onboarding.component').then(m => m.OnboardingComponent)
+  },
+
+  // ─── Área Privada com Tab Bar ─────────────────────────────────────────────
+  {
+    path: 'painel',
+    component: TabsLayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      {
+        path: 'agenda',
+        loadComponent: () =>
+          import('./pages/agenda/agenda.component').then(m => m.AgendaComponent)
+      },
+      {
+        path: 'clientes',
+        loadComponent: () =>
+          import('./pages/clientes/clientes.component').then(m => m.ClientesComponent)
+      },
+      {
+        path: 'servicos',
+        loadComponent: () =>
+          import('./pages/servicos/servicos.component').then(m => m.ServicosComponent)
+      },
+      {
+        path: 'configuracoes',
+        loadComponent: () =>
+          import('./pages/configuracoes/configuracoes.component').then(m => m.ConfiguracoesComponent)
+      },
+      {
+        path: 'dados-loja',
+        loadComponent: () =>
+          import('./pages/dados-loja/dados-loja.component').then(m => m.DadosLojaComponent)
+      },
+      {
+        path: 'bloqueios',
+        loadComponent: () =>
+          import('./pages/bloqueios/bloqueios.component').then(m => m.BloqueiosComponent)
+      },
+      {
+        path: 'perfil',
+        loadComponent: () =>
+          import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
+      },
+      {
+        path: 'notificacoes',
+        loadComponent: () =>
+          import('./pages/notificacoes/notificacoes.component').then(m => m.NotificacoesComponent)
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
+  },
+
+  // Redirects de compatibilidade (rotas antigas sem /painel/)
+  { path: 'dashboard', redirectTo: '/painel/dashboard', pathMatch: 'full' },
+  { path: 'agenda', redirectTo: '/painel/agenda', pathMatch: 'full' },
+  { path: 'clientes', redirectTo: '/painel/clientes', pathMatch: 'full' },
+  { path: 'servicos', redirectTo: '/painel/servicos', pathMatch: 'full' },
+  { path: 'configuracoes', redirectTo: '/painel/configuracoes', pathMatch: 'full' },
+  { path: 'perfil', redirectTo: '/painel/perfil', pathMatch: 'full' },
+  { path: 'notificacoes', redirectTo: '/painel/notificacoes', pathMatch: 'full' },
+  { path: 'dados-loja', redirectTo: '/painel/dados-loja', pathMatch: 'full' },
+  { path: 'bloqueios', redirectTo: '/painel/bloqueios', pathMatch: 'full' },
+
+  { path: '**', redirectTo: '/' }
+];

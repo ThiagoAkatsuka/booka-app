@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-import { TopbarComponent } from '../../components/topbar/topbar.component';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { notificationsOutline, addOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SidebarComponent, TopbarComponent], // Avisando o Angular que vamos usar esses componentes
+  imports: [RouterModule, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  constructor() { addIcons({ notificationsOutline, addOutline }); }
+}
