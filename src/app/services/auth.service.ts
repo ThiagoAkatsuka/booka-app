@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,26 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   login(email: string, senha: string) {
+    // Login chumbado para teste como Profissional
+    if (email === 'admin@teste.com' && senha === '123456') {
+      return of({ token: 'mock-token-admin', usuario: { role: 'PROFISSIONAL' } }).pipe(
+        tap(response => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.usuario.role);
+        })
+      );
+    }
+
+    // Login chumbado para teste como Cliente
+    if (email === 'cliente@teste.com' && senha === '123456') {
+      return of({ token: 'mock-token-cliente', usuario: { role: 'CLIENTE' } }).pipe(
+        tap(response => {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.usuario.role);
+        })
+      );
+    }
+
     return this.http.post<{ token: string, usuario?: any }>(`${this.apiUrl}/auth/login`, { email, senha })
       .pipe(
         tap(response => {
